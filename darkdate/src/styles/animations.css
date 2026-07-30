@@ -1,0 +1,79 @@
+/* ============================================
+   DARKDATE — ANIMATIONS
+   ============================================ */
+
+/* Свайп карточки */
+@keyframes card-swipe-right {
+    to {
+        transform: translateX(150%) rotate(30deg);
+        opacity: 0;
+    }
+}
+
+@keyframes card-swipe-left {
+    to {
+        transform: translateX(-150%) rotate(-30deg);
+        opacity: 0;
+    }
+}
+
+.card-swiping-right {
+    animation: card-swipe-right 0.5s ease forwards;
+}
+
+.card-swiping-left {
+    animation: card-swipe-left 0.5s ease forwards;
+}
+
+/* Появление новой карточки */
+@keyframes card-enter {
+    from {
+        transform: scale(0.9) translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+.card-entering {
+    animation: card-enter 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Мерцание (для game over, хоррора) */
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    5% { opacity: 0.85; }
+    10% { opacity: 1; }
+    15% { opacity: 0.4; }
+    20% { opacity: 1; }
+    50% { opacity: 1; }
+    55% { opacity: 0.7; }
+    60% { opacity: 1; }
+}
+
+/* Пульсация красным */
+@keyframes pulse-red {
+    0%, 100% { box-shadow: 0 0 0 0 var(--accent-red-glow); }
+    50% { box-shadow: 0 0 30px 10px var(--accent-red-glow); }
+}
+
+/* Плавное появление */
+@keyframes slide-up {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Тряска (базовая) */
+@keyframes shake-subtle {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+}

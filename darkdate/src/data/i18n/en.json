@@ -1,0 +1,39 @@
+{
+    "splash": {
+        "subtitle": "Find your dark half"
+    },
+    "lives": {
+        "round": "Round",
+        "session": "Session"
+    },
+    "empty": {
+        "title": "That's all for today...",
+        "subtitle": "Come back later, if you dare"
+    },
+    "timer": {
+        "next": "Next attempt in:"
+    },
+    "modal": {
+        "continue": "Continue",
+        "entity_title": "That wasn't her...",
+        "entity_text": "You accepted an entity. It knows where you are now.",
+        "victim_saved": "You saved her... for now.",
+        "victim_lost": "You rejected her. The scream stopped.",
+        "hunter_title": "Hunter online",
+        "match_title": "It's a Match!",
+        "match_text": "You can now chat."
+    },
+    "gameover": {
+        "title": "GAME OVER",
+        "subtitle": "She found you...",
+        "restart": "Try again"
+    },
+    "swipe": {
+        "like": "LIKE",
+        "nope": "NOPE"
+    },
+    "notifications": {
+        "new_match": "New match!",
+        "entity_warning": "Be careful..."
+    }
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>DarkDate</title>
+    <link rel="icon" type="image/svg+xml" href="src/assets/icons/logo.svg">
+    <link rel="stylesheet" href="src/styles/main.css">
+    <link rel="stylesheet" href="src/styles/animations.css">
+    <link rel="stylesheet" href="src/styles/horror.css">
+    <!-- Предзагрузка шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ===== ЭКРАН ЗАГРУЗКИ ===== -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-logo">
+            <svg viewBox="0 0 100 100" class="logo-svg">
+                <path class="logo-heart" d="M50 88 C25 65, 0 45, 0 28 C0 12, 12 0, 28 0 C38 0, 46 6, 50 14 C54 6, 62 0, 72 0 C88 0, 100 12, 100 28 C100 45, 75 65, 50 88Z"/>
+                <path class="logo-crack" d="M50 14 L48 30 L54 38 L46 52 L52 65 L48 80"/>
+            </svg>
+        </div>
+        <h1 class="splash-title">DarkDate</h1>
+        <p class="splash-subtitle" data-i18n="splash.subtitle">Найди свою тёмную половину</p>
+        <div class="splash-loader">
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <!-- ===== ОСНОВНОЕ ПРИЛОЖЕНИЕ ===== -->
+    <div id="app" class="app hidden">
+
+        <!-- Верхняя панель -->
+        <header class="app-header">
+            <button class="header-btn" id="btn-settings" aria-label="Settings">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="currentColor" d="M12 15.5A3.5 3.5 0 0 1 8.5 12 3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5 3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97s-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1s.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.26 1.17-.59 1.69-.98l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.66Z"/>
+                </svg>
+            </button>
+
+            <div class="header-logo">
+                <svg viewBox="0 0 100 100" width="28" height="28">
+                    <path class="logo-heart-sm" d="M50 88 C25 65, 0 45, 0 28 C0 12, 12 0, 28 0 C38 0, 46 6, 50 14 C54 6, 62 0, 72 0 C88 0, 100 12, 100 28 C100 45, 75 65, 50 88Z"/>
+                    <path class="logo-crack-sm" d="M50 14 L48 30 L54 38 L46 52 L52 65 L48 80"/>
+                </svg>
+                <span class="header-title">DarkDate</span>
+            </div>
+
+            <button class="header-btn" id="btn-notifications" aria-label="Notifications">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                </svg>
+                <span class="notification-badge hidden" id="notif-badge">0</span>
+            </button>
+        </header>
+
+        <!-- Индикатор попыток -->
+        <div class="lives-bar">
+            <div class="lives-container">
+                <span class="lives-label" data-i18n="lives.round">Раунд:</span>
+                <div class="lives-hearts" id="round-lives">
+                    <span class="heart">♥</span>
+                    <span class="heart">♥</span>
+                    <span class="heart">♥</span>
+                </div>
+            </div>
+            <div class="lives-container">
+                <span class="lives-label" data-i18n="lives.session">Сессия:</span>
+                <div class="lives-hearts" id="session-lives">
+                    <span class="heart">♥</span>
+                    <span class="heart">♥</span>
+                    <span class="heart">♥</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ЗОНА СВАЙПОВ ===== -->
+        <main class="swipe-area" id="swipe-area">
+            <div class="cards-stack" id="cards-stack">
+                <!-- Карточки генерируются через JS -->
+            </div>
+
+            <!-- Пустое состояние -->
+            <div class="empty-state hidden" id="empty-state">
+                <div class="empty-icon">🖤</div>
+                <h2 data-i18n="empty.title">На сегодня всё...</h2>
+                <p data-i18n="empty.subtitle">Возвращайся позже, если осмелишься</p>
+                <div class="timer-display hidden" id="timer-display">
+                    <span data-i18n="timer.next">Следующая попытка через:</span>
+                    <span class="timer-value" id="timer-value">04:00:00</span>
+                </div>
+            </div>
+
+            <!-- Оверлей дебаффа (темнота + фонарик) -->
+            <div class="debuff-overlay hidden" id="debuff-overlay">
+                <div class="flashlight" id="flashlight"></div>
+            </div>
+        </main>
+
+        <!-- ===== КНОПКИ ДЕЙСТВИЙ ===== -->
+        <footer class="action-bar">
+            <button class="action-btn action-dislike" id="btn-dislike" aria-label="Dislike">
+                <svg viewBox="0 0 24 24" width="32" height="32">
+                    <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+            </button>
+
+            <button class="action-btn action-superlike hidden" id="btn-superlike" aria-label="Super Like">
+                <svg viewBox="0 0 24 24" width="28" height="28">
+                    <path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+            </button>
+
+            <button class="action-btn action-like" id="btn-like" aria-label="Like">
+                <svg viewBox="0 0 24 24" width="32" height="32">
+                    <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </button>
+        </footer>
+
+        <!-- ===== МОДАЛЬНОЕ ОКНО РЕЗУЛЬТАТА ===== -->
+        <div class="modal-overlay hidden" id="modal-overlay">
+            <div class="modal" id="result-modal">
+                <div class="modal-icon" id="modal-icon"></div>
+                <h2 class="modal-title" id="modal-title"></h2>
+                <p class="modal-text" id="modal-text"></p>
+                <button class="modal-btn" id="modal-btn" data-i18n="modal.continue">Продолжить</button>
+            </div>
+        </div>
+
+        <!-- ===== ЭКРАН GAME OVER ===== -->
+        <div class="gameover-screen hidden" id="gameover-screen">
+            <div class="gameover-content">
+                <h1 class="gameover-title" data-i18n="gameover.title">GAME OVER</h1>
+                <p class="gameover-subtitle" data-i18n="gameover.subtitle">Она нашла тебя...</p>
+                <div class="gameover-stats" id="gameover-stats"></div>
+                <button class="gameover-btn" id="btn-restart" data-i18n="gameover.restart">Попробовать снова</button>
+                <div class="gameover-timer" id="gameover-timer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модули -->
+    <script type="module" src="src/scripts/app.js"></script>
+</body>
+</html>

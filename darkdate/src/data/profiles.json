@@ -1,0 +1,148 @@
+{
+    "profiles": [
+        {
+            "id": "human_01",
+            "type": "human",
+            "name": "Алина",
+            "age": 24,
+            "bio": "Люблю путешествия и хороший кофе ☕ Ищу того, с кем можно молчать и не скучать.",
+            "tags": ["путешествия", "кофе", "фото"],
+            "image": "https://pixabay.com/ru/images/download/x-5378357_1920.jpg",
+            "difficulty": 1,
+            "horrorHints": []
+        },
+        {
+            "id": "human_02",
+            "type": "human",
+            "name": "Дмитрий",
+            "age": 28,
+            "bio": "Программист днём, гитарист ночью 🎸 Верю, что лучший код пишется под дождь.",
+            "tags": ["музыка", "IT", "дождь"],
+            "image": "https://pixabay.com/ru/images/download/x-2178963_1920.jpg",
+            "difficulty": 1,
+            "horrorHints": []
+        },
+        {
+            "id": "human_03",
+            "type": "human",
+            "name": "Мария",
+            "age": 22,
+            "bio": "Художница. Рисую портреты и иногда будущее 🎨 Пиши, если не боишься узнать своё.",
+            "tags": ["искусство", "мистика", "кошки"],
+            "image": "https://pixabay.com/ru/images/download/x-2590564_1920.jpg",
+            "difficulty": 1,
+            "horrorHints": []
+        },
+        {
+            "id": "human_04",
+            "type": "human",
+            "name": "Артём",
+            "age": 26,
+            "bio": "Фитнес-тренер. Помогу стать лучшей версией себя 💪 Или худшей, зависит от настроения.",
+            "tags": ["спорт", "здоровье", "мотивация"],
+            "image": "https://pixabay.com/ru/images/download/x-2562646_1920.jpg",
+            "difficulty": 1,
+            "horrorHints": []
+        },
+        {
+            "id": "human_05",
+            "type": "human",
+            "name": "Елена",
+            "age": 25,
+            "bio": "Врач-терапевт. Лечу тела, но не души 🩺 Ищу того, кто не боится уколов и правды.",
+            "tags": ["медицина", "книги", "вино"],
+            "image": "https://pixabay.com/ru/images/download/judithscharnowski-thailand-1161812_1280.jpg",
+            "difficulty": 1,
+            "horrorHints": []
+        },
+        {
+            "id": "entity_01",
+            "type": "entity",
+            "name": "Кристина",
+            "age": 23,
+            "bio": "Я всегда рядом. Всегда. Ты просто ещё не обернулся. 💕",
+            "tags": ["вечность", "тишина", "ты"],
+            "image": "src/assets/images/entity_01.png",
+            "difficulty": 3,
+            "horrorHints": [
+                "bio_repeat_word",
+                "subtle_glitch",
+                "eye_anomaly"
+            ],
+            "debuffOnView": "darkness",
+            "debuffDuration": 5000
+        },
+        {
+            "id": "entity_02",
+            "type": "entity",
+            "name": "А̷н̶а̸с̵т̸а̷с̶и̸я̵",
+            "age": null,
+            "bio": "П̸о̶м̵о̷г̸и̶ ̸м̵н̷е̶.̸ ̷Я̶ ̸н̶е̷ ̵м̶о̸г̵у̷ ̸н̷а̸й̵т̸и̶ ̵в̷ы̸х̵о̷д̸.̵ ̸Т̸ы̷ ̸м̶о̵ж̶е̸ш̵ь̸ ̷о̷т̸к̷р̵ы̶т̷ь̸ ̵д̶в̸е̵р̶ь̷.̶",
+            "tags": ["помощь", "дверь", "т̸ы̶"],
+            "image": "src/assets/images/entity_02.png",
+            "difficulty": 2,
+            "horrorHints": [
+                "corrupted_name",
+                "corrupted_bio",
+                "null_age"
+            ],
+            "debuffOnView": null
+        },
+        {
+            "id": "entity_03",
+            "type": "entity",
+            "name": "Она",
+            "age": 25,
+            "bio": "Мы уже встречались. Ты просто не помнишь. Но я помню всё. Каждую ночь.",
+            "tags": ["память", "ночь", "возвращение"],
+            "image": "src/assets/images/entity_03.png",
+            "difficulty": 4,
+            "horrorHints": [
+                "no_last_name",
+                "menace_pulse",
+                "vision_blur"
+            ],
+            "debuffOnView": "blur",
+            "debuffDuration": 4000
+        },
+        {
+            "id": "victim_01",
+            "type": "victim",
+            "name": "София",
+            "age": 21,
+            "bio": "Пожалуйста, если ты это читаешь — не свайпай влево. Она идёт за мной. Я чувствую. Помоги мне... 😢",
+            "tags": ["помощь", "страх", "последний шанс"],
+            "image": "src/assets/images/victim_01.png",
+            "difficulty": 2,
+            "horrorHints": [
+                "desperate_bio",
+                "tear_stains"
+            ]
+        },
+        {
+            "id": "hunter_01",
+            "type": "hunter",
+            "name": "Виктор",
+            "age": 45,
+            "bio": "Охочусь на то, что прячется среди вас. Лайкни, если хочешь выжить. Я дам тебе подсказку.",
+            "tags": ["охота", "выживание", "правда"],
+            "image": "src/assets/images/hunter_01.png",
+            "difficulty": 1,
+            "horrorHints": [],
+            "hintOnLike": "Следующая сущность боится света. Используй фонарик."
+        }
+    ],
+    "entityClues": {
+        "bio_repeat_word": "Повторяющиеся слова или зацикленные фразы в описании",
+        "subtle_glitch": "Лёгкий глитч на фото при долгом просмотре",
+        "eye_anomaly": "Глаза на фото слегка неестественны (слишком большие, без зрачков)",
+        "corrupted_name": "Имя содержит Unicode-глитч символы (Zalgo text)",
+        "corrupted_bio": "Текст био содержит повреждённые символы",
+        "null_age": "Возраст отсутствует или отображается как ??",
+        "no_last_name": "Только имя, без фамилии, без привязки к реальности",
+        "menace_pulse": "Карточка слегка пульсирует красным",
+        "vision_blur": "Зрение размывается при просмотре",
+        "desperate_bio": "Отчаянный текст с просьбой о помощи",
+        "tear_stains": "Слёзы на фото (чёрные или кровавые)"
+    }
+}

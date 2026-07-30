@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Сердце (красное) -->
+  <path d="M50 85 C50 85, 15 60, 15 35 C15 22, 25 15, 35 15 C42 15, 48 20, 50 25 C52 20, 58 15, 65 15 C75 15, 85 22, 85 35 C85 60, 50 85, 50 85 Z" 
+        fill="#E63946" stroke="#000" stroke-width="2"/>
+  <!-- Череп поверх сердца -->
+  <g transform="translate(30, 30) scale(0.4)">
+    <ellipse cx="50" cy="40" rx="35" ry="38" fill="#fff" stroke="#000" stroke-width="2"/>
+    <ellipse cx="37" cy="38" rx="8" ry="10" fill="#000"/>
+    <ellipse cx="63" cy="38" rx="8" ry="10" fill="#000"/>
+    <path d="M45 55 L50 65 L55 55" fill="none" stroke="#000" stroke-width="2"/>
+    <rect x="35" y="70" width="30" height="15" fill="#fff" stroke="#000" stroke-width="2"/>
+    <line x1="42" y1="70" x2="42" y2="85" stroke="#000" stroke-width="1"/>
+    <line x1="50" y1="70" x2="50" y2="85" stroke="#000" stroke-width="1"/>
+    <line x1="58" y1="70" x2="58" y2="85" stroke="#000" stroke-width="1"/>
+  </g>
+</svg>
