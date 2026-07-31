@@ -1,0 +1,39 @@
+{
+    "splash": {
+        "subtitle": "Encuentra tu mitad oscura"
+    },
+    "lives": {
+        "round": "Ronda",
+        "session": "Sesión"
+    },
+    "empty": {
+        "title": "Eso es todo por hoy...",
+        "subtitle": "Vuelve más tarde, si te atreves"
+    },
+    "timer": {
+        "next": "Próximo intento en:"
+    },
+    "modal": {
+        "continue": "Continuar",
+        "entity_title": "No era ella...",
+        "entity_text": "Aceptaste una entidad. Ahora sabe dónde estás.",
+        "victim_saved": "La salvaste... por ahora.",
+        "victim_lost": "La rechazaste. El grito se detuvo.",
+        "hunter_title": "Cazador en línea",
+        "match_title": "¡Es un Match!",
+        "match_text": "Ahora pueden chatear."
+    },
+    "gameover": {
+        "title": "FIN DEL JUEGO",
+        "subtitle": "Ella te encontró...",
+        "restart": "Intentar de nuevo"
+    },
+    "swipe": {
+        "like": "ME GUSTA",
+        "nope": "NO"
+    },
+    "notifications": {
+        "new_match": "¡Nuevo match!",
+        "entity_warning": "Ten cuidado..."
+    }
+}

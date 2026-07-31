@@ -1,13 +1,13 @@
 /**
  * DarkDate — Internationalization Module
- * Поддержка: RU, EN (расширяемо)
+ * Поддержка: RU, EN, PT-BR, ZH-CN, ES, JA, DE, ID
  */
 
 export class I18n {
     constructor() {
         this.currentLang = 'ru';
         this.translations = {};
-        this.supportedLangs = ['ru', 'en', 'zh'];
+        this.supportedLangs = ['ru', 'en', 'pt-BR', 'zh-CN', 'es', 'ja', 'de', 'id'];
     }
 
     async load(lang) {

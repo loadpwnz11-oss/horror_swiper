@@ -1,0 +1,39 @@
+{
+    "splash": {
+        "subtitle": "Temukan belahan gelapmu"
+    },
+    "lives": {
+        "round": "Putaran",
+        "session": "Sesi"
+    },
+    "empty": {
+        "title": "Itu saja untuk hari ini...",
+        "subtitle": "Kembali nanti, jika kamu berani"
+    },
+    "timer": {
+        "next": "Percobaan berikutnya dalam:"
+    },
+    "modal": {
+        "continue": "Lanjutkan",
+        "entity_title": "Itu bukan dia...",
+        "entity_text": "Kamu menerima entitas. Sekarang ia tahu di mana kamu berada.",
+        "victim_saved": "Kamu menyelamatkannya... untuk saat ini.",
+        "victim_lost": "Kamu menolaknya. Teriakan berhenti.",
+        "hunter_title": "Pemburu online",
+        "match_title": "Ini Match!",
+        "match_text": "Kalian sekarang bisa mengobrol."
+    },
+    "gameover": {
+        "title": "PERMAINAN SELESAI",
+        "subtitle": "Dia menemukanmu...",
+        "restart": "Coba lagi"
+    },
+    "swipe": {
+        "like": "SUKA",
+        "nope": "TIDAK"
+    },
+    "notifications": {
+        "new_match": "Match baru!",
+        "entity_warning": "Hati-hati..."
+    }
+}
