@@ -1,0 +1,39 @@
+{
+    "splash": {
+        "subtitle": "あなたのダークな另一半分を見つけよう"
+    },
+    "lives": {
+        "round": "ラウンド",
+        "session": "セッション"
+    },
+    "empty": {
+        "title": "今日はここまで...",
+        "subtitle": "勇気があれば、また後で来てね"
+    },
+    "timer": {
+        "next": "次の試行まで："
+    },
+    "modal": {
+        "continue": "続行",
+        "entity_title": "それは彼女じゃなかった...",
+        "entity_text": "あなたはエンティティを受け入れました。奴は今、あなたがどこにいるか知っています。",
+        "victim_saved": "あなたは彼女を救った...今のところは。",
+        "victim_lost": "あなたは彼女を拒否した。悲鳴が止まった。",
+        "hunter_title": "ハンターオンライン",
+        "match_title": "マッチ成立！",
+        "match_text": "これでチャットできます。"
+    },
+    "gameover": {
+        "title": "ゲームオーバー",
+        "subtitle": "彼女があなたを見つけた...",
+        "restart": "もう一度挑戦"
+    },
+    "swipe": {
+        "like": "いいね",
+        "nope": "ダメ"
+    },
+    "notifications": {
+        "new_match": "新しいマッチ！",
+        "entity_warning": "気をつけて..."
+    }
+}

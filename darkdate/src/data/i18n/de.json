@@ -1,0 +1,39 @@
+{
+    "splash": {
+        "subtitle": "Finde deine dunkle Hälfte"
+    },
+    "lives": {
+        "round": "Runde",
+        "session": "Sitzung"
+    },
+    "empty": {
+        "title": "Das ist alles für heute...",
+        "subtitle": "Komm später wieder, wenn du dich traust"
+    },
+    "timer": {
+        "next": "Nächster Versuch in:"
+    },
+    "modal": {
+        "continue": "Fortsetzen",
+        "entity_title": "Das war sie nicht...",
+        "entity_text": "Du hast eine Entität akzeptiert. Sie weiß jetzt, wo du bist.",
+        "victim_saved": "Du hast sie gerettet... vorerst.",
+        "victim_lost": "Du hast sie abgelehnt. Der Schrei verstummte.",
+        "hunter_title": "Jäger online",
+        "match_title": "Es ist ein Match!",
+        "match_text": "Ihr könnt jetzt chatten."
+    },
+    "gameover": {
+        "title": "SPIEL VORBEI",
+        "subtitle": "Sie hat dich gefunden...",
+        "restart": "Nochmal versuchen"
+    },
+    "swipe": {
+        "like": "LIKE",
+        "nope": "NEIN"
+    },
+    "notifications": {
+        "new_match": "Neues Match!",
+        "entity_warning": "Sei vorsichtig..."
+    }
+}

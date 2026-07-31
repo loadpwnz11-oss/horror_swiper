@@ -1,0 +1,39 @@
+{
+    "splash": {
+        "subtitle": "Encontre sua metade sombria"
+    },
+    "lives": {
+        "round": "Rodada",
+        "session": "Sessão"
+    },
+    "empty": {
+        "title": "Isso é tudo por hoje...",
+        "subtitle": "Volte mais tarde, se tiver coragem"
+    },
+    "timer": {
+        "next": "Próxima tentativa em:"
+    },
+    "modal": {
+        "continue": "Continuar",
+        "entity_title": "Não era ela...",
+        "entity_text": "Você aceitou uma entidade. Agora ela sabe onde você está.",
+        "victim_saved": "Você a salvou... por enquanto.",
+        "victim_lost": "Você a rejeitou. O grito parou.",
+        "hunter_title": "Caçador online",
+        "match_title": "É um Match!",
+        "match_text": "Agora vocês podem conversar."
+    },
+    "gameover": {
+        "title": "FIM DE JOGO",
+        "subtitle": "Ela te encontrou...",
+        "restart": "Tentar novamente"
+    },
+    "swipe": {
+        "like": "CURTIR",
+        "nope": "NÃO"
+    },
+    "notifications": {
+        "new_match": "Novo match!",
+        "entity_warning": "Tenha cuidado..."
+    }
+}
