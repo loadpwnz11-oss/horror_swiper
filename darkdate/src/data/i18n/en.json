@@ -28,12 +28,25 @@
         "subtitle": "She found you...",
         "restart": "Try again"
     },
+    "nosessions": {
+        "title": "Sessions exhausted",
+        "subtitle": "Rest... She will wait."
+    },
     "swipe": {
         "like": "LIKE",
         "nope": "NOPE"
     },
     "notifications": {
         "new_match": "New match!",
-        "entity_warning": "Be careful..."
+        "entity_warning": "Be careful...",
+        "empty": "Notifications are empty..."
+    },
+    "settings": {
+        "title": "Settings",
+        "language": "Language",
+        "data": "Data",
+        "reset_progress": "Reset progress",
+        "reset_confirm": "Are you sure? All progress will be lost.",
+        "reset_done": "Progress reset!"
     }
 }

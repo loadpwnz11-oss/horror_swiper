@@ -719,6 +719,133 @@ body {
     font-size: 0.9rem;
 }
 
+/* === NO SESSIONS SCREEN === */
+.no-sessions-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 900;
+    animation: fade-in 1s ease;
+}
+
+.no-sessions-content {
+    text-align: center;
+    padding: 32px;
+}
+
+.no-sessions-icon {
+    font-size: 4rem;
+    margin-bottom: 24px;
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.no-sessions-content h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.no-sessions-content p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+}
+
+/* === MODAL SETTINGS STYLES === */
+.modal-settings .settings-content {
+    text-align: left;
+    margin: 24px 0;
+}
+
+.setting-item {
+    margin-bottom: 24px;
+}
+
+.setting-divider {
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.setting-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.language-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--bg-secondary);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-align: left;
+}
+
+.lang-btn:hover {
+    background: var(--bg-elevated);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.lang-btn.active {
+    background: var(--accent-red-dark);
+    border-color: var(--accent-red);
+}
+
+.lang-flag {
+    font-size: 1.5rem;
+}
+
+.lang-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.reset-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    border: 2px solid var(--danger);
+    border-radius: 12px;
+    color: var(--danger);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.reset-btn:hover {
+    background: var(--danger);
+    color: white;
+    box-shadow: 0 0 20px var(--accent-red-glow);
+}
+
+.reset-icon {
+    font-size: 1.2rem;
+}
+
 /* === RESPONSIVE === */
 @media (min-width: 481px) {
     .app {

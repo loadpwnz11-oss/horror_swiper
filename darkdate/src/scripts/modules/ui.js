@@ -156,25 +156,32 @@ export class UIController {
     // === НАСТРОЙКИ (Модальное окно) ===
 
     showSettingsModal() {
+        const langs = this.i18n.getSupportedLanguages();
         const overlay = document.createElement('div');
         overlay.id = 'settings-overlay';
         overlay.className = 'modal-overlay';
         overlay.innerHTML = `
-            <div class="modal" id="settings-modal">
+            <div class="modal modal-settings" id="settings-modal">
                 <h2 class="modal-title" data-i18n="settings.title">Настройки</h2>
                 <div class="settings-content">
                     <div class="setting-item">
-                        <label data-i18n="settings.language">Язык:</label>
-                        <select id="language-select">
-                            <option value="ru" ${this.i18n.currentLang === 'ru' ? 'selected' : ''}>Русский</option>
-                            <option value="en" ${this.i18n.currentLang === 'en' ? 'selected' : ''}>English</option>
-                            <option value="pt-BR" ${this.i18n.currentLang === 'pt-BR' ? 'selected' : ''}>Português (BR)</option>
-                            <option value="zh-CN" ${this.i18n.currentLang === 'zh-CN' ? 'selected' : ''}>中文</option>
-                            <option value="es" ${this.i18n.currentLang === 'es' ? 'selected' : ''}>Español</option>
-                            <option value="ja" ${this.i18n.currentLang === 'ja' ? 'selected' : ''}>日本語</option>
-                            <option value="de" ${this.i18n.currentLang === 'de' ? 'selected' : ''}>Deutsch</option>
-                            <option value="id" ${this.i18n.currentLang === 'id' ? 'selected' : ''}>Bahasa Indonesia</option>
-                        </select>
+                        <label class="setting-label" data-i18n="settings.language">Язык:</label>
+                        <div class="language-grid">
+                            ${Object.entries(langs).map(([code, {name, flag}]) => `
+                                <button class="lang-btn ${this.i18n.currentLang === code ? 'active' : ''}" 
+                                        data-lang="${code}">
+                                    <span class="lang-flag">${flag}</span>
+                                    <span class="lang-name">${name}</span>
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="setting-item setting-divider">
+                        <label class="setting-label" data-i18n="settings.data">Данные:</label>
+                        <button class="reset-btn" id="reset-progress-btn">
+                            <span class="reset-icon">🗑️</span>
+                            <span data-i18n="settings.reset_progress">Сбросить прогресс</span>
+                        </button>
                     </div>
                 </div>
                 <button class="modal-btn" id="settings-close-btn" data-i18n="modal.continue">Закрыть</button>
@@ -184,14 +191,41 @@ export class UIController {
         document.body.appendChild(overlay);
 
         // Обработчик смены языка
-        document.getElementById('language-select').addEventListener('change', async (e) => {
-            await this.i18n.setLanguage(e.target.value);
-            window.darkdate?.renderCards(); // Перерисовать карточки с новым языком
+        overlay.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                const lang = e.currentTarget.dataset.lang;
+                await this.i18n.setLanguage(lang);
+                
+                // Обновляем активный класс
+                overlay.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+                
+                // Перерисовать карточки с новым языком
+                window.darkdate?.renderCards();
+            });
+        });
+
+        // Обработчик сброса прогресса
+        document.getElementById('reset-progress-btn')?.addEventListener('click', () => {
+            if (confirm(this.i18n.t('settings.reset_confirm') || 'Вы уверены? Весь прогресс будет потерян.')) {
+                localStorage.removeItem('darkdate_state');
+                this.showToast(this.i18n.t('settings.reset_done') || 'Прогресс сброшен!', 2000);
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
+            }
         });
 
         // Закрытие модального окна
         document.getElementById('settings-close-btn').addEventListener('click', () => {
             overlay.remove();
+        });
+        
+        // Закрытие по клику вне модалки
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.remove();
+            }
         });
     }
 
@@ -200,7 +234,7 @@ export class UIController {
     showNotificationsPanel() {
         // Временная заглушка - можно расширить функционал уведомлений
         console.log('[UI] Notifications panel clicked');
-        alert(this.i18n.t('notifications.entity_warning') || 'Уведомления пока пусты...');
+        this.showToast(this.i18n.t('notifications.empty') || 'Уведомления пусты...', 2000);
     }
 
     // === ТАЙМЕР ===
