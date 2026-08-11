@@ -104,8 +104,10 @@ export class UIController {
             }, 300);
         }
 
-        // Показываем тост-уведомление вместо модалки
-        const message = result.titleKey ? this.i18n.t(result.titleKey) : result.title;
+        // Показываем тост-уведомление с заголовком и текстом
+        const title = result.titleKey ? this.i18n.t(result.titleKey) : result.title;
+        const text = result.textKey ? this.i18n.t(result.textKey) : result.text;
+        const message = title + (text ? ' ' + text : '');
         this.showToast(message || 'Уведомление', 2000);
     }
 

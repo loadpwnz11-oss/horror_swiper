@@ -17,6 +17,8 @@
         "continue": "Continue",
         "entity_title": "That wasn't her...",
         "entity_text": "You accepted an entity. It knows where you are now.",
+        "entity_dodged_title": "Dodged!",
+        "entity_dodged_text": "You recognized the entity.",
         "victim_saved": "You saved her... for now.",
         "victim_lost": "You rejected her. The scream stopped.",
         "hunter_title": "Hunter online",
@@ -48,5 +50,57 @@
         "reset_progress": "Reset progress",
         "reset_confirm": "Are you sure? All progress will be lost.",
         "reset_done": "Progress reset!"
+    },
+    "profiles": {
+        "human_01": {
+            "name": "Alina",
+            "bio": "I love traveling and good coffee ☕ Looking for someone I can be silent with and not get bored.",
+            "tags": ["travel", "coffee", "photography"]
+        },
+        "human_02": {
+            "name": "Dmitry",
+            "bio": "Programmer by day, guitarist by night 🎸 I believe the best code is written in the rain.",
+            "tags": ["music", "IT", "rain"]
+        },
+        "human_03": {
+            "name": "Maria",
+            "bio": "Artist. I paint portraits and sometimes the future 🎨 Write if you're not afraid to learn yours.",
+            "tags": ["art", "mysticism", "cats"]
+        },
+        "human_04": {
+            "name": "Artem",
+            "bio": "Fitness trainer. I'll help you become the best version of yourself 💪 Or the worst, depends on my mood.",
+            "tags": ["sports", "health", "motivation"]
+        },
+        "human_05": {
+            "name": "Elena",
+            "bio": "General practitioner. I heal bodies, not souls 🩺 Looking for someone who isn't afraid of needles and truth.",
+            "tags": ["medicine", "books", "wine"]
+        },
+        "entity_01": {
+            "name": "Kristina",
+            "bio": "I'm always nearby. Always. You just haven't turned around yet. 💕",
+            "tags": ["eternity", "silence", "you"]
+        },
+        "entity_02": {
+            "name": "A̷n̶a̸s̵t̸a̷s̶i̸y̵a̵",
+            "bio": "H̸e̶l̵p̸ ̶m̵e̶.̸ ̷I̶ ̸c̶a̷n̵'̸t̸ ̷f̶i̸n̵d̸ ̵t̷h̸e̶ ̸w̶a̷y̵ ̸o̶u̷t̸.̵ ̸Y̸o̷u̶ ̸c̶a̷n̵ ̸o̷p̶e̷n̸ ̵t̷h̸e̶ ̸d̶o̷o̷r̸.̶",
+            "tags": ["help", "door", "y̷o̶u̸"]
+        },
+        "entity_03": {
+            "name": "Her",
+            "bio": "We've met before. You just don't remember. But I remember everything. Every night.",
+            "tags": ["memory", "night", "return"]
+        },
+        "victim_01": {
+            "name": "Sofia",
+            "bio": "Please, if you're reading this — don't swipe left. She's coming for me. I can feel it. Help me... 😢",
+            "tags": ["help", "fear", "last chance"]
+        },
+        "hunter_01": {
+            "name": "Viktor",
+            "bio": "I hunt what hides among you. Like if you want to survive. I'll give you a hint.",
+            "tags": ["hunting", "survival", "truth"]
+        }
     }
 }

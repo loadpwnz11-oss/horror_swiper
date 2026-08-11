@@ -129,6 +129,10 @@ class DarkDateApp {
         card.className = 'profile-card';
         card.dataset.profileId = profile.id;
         card.dataset.profileType = profile.type;
+        // Сохраняем оригинальные данные для перевода
+        card.dataset.originalName = profile.name;
+        card.dataset.originalBio = profile.bio;
+        card.dataset.originalTags = JSON.stringify(profile.tags);
 
         if (stackPosition === 1) card.classList.add('card-behind-1');
         if (stackPosition === 2) card.classList.add('card-behind-2');
@@ -208,7 +212,7 @@ class DarkDateApp {
                     this.ui.updateLives();
                     return { type: 'entity_hit', icon: '👁️', titleKey: 'modal.entity_title', textKey: 'modal.entity_text' };
                 }
-                return { type: 'entity_dodged', icon: '✅', title: 'Избежал!', text: 'Ты распознал сущность.' };
+                return { type: 'entity_dodged', icon: '✅', titleKey: 'modal.entity_dodged_title', textKey: 'modal.entity_dodged_text' };
 
             case 'victim':
                 if (isLike) {
