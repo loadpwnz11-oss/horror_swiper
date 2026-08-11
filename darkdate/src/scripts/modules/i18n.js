@@ -32,6 +32,13 @@ export class I18n {
         return key.split('.').reduce((obj, part) => obj?.[part], this.translations) || key;
     }
 
+    /** Получить перевод для профиля по ID и полю */
+    translateProfileField(profileId, field, lang = null) {
+        const targetLang = lang || this.currentLang;
+        const translationKey = `profiles.${profileId}.${field}`;
+        return this.t(translationKey);
+    }
+
     /** Применить переводы ко всем элементам с data-i18n */
     applyToDOM() {
         document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -41,6 +48,16 @@ export class I18n {
                 el.textContent = translation;
             }
         });
+        
+        // Применяем перевод к карточкам профилей (динамически генерируемые элементы)
+        this.applyToProfiles();
+    }
+    
+    /** Применить перевод к полям профилей */
+    applyToProfiles() {
+        // Перевод полей в profiles.json будет применяться при рендеринге карточек
+        // Здесь можно добавить логику для перевода тегов и био, если они есть в i18n файлах
+        // Для динамического перевода можно использовать translateProfileField()
     }
 
     /** Смена языка */
@@ -52,5 +69,10 @@ export class I18n {
     /** Получить сохранённый язык */
     getSavedLanguage() {
         return localStorage.getItem('darkdate_lang') || 'ru';
+    }
+
+    /** Получить текущий язык */
+    getCurrentLang() {
+        return this.currentLang;
     }
 }

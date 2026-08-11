@@ -26,7 +26,8 @@ class DarkDateApp {
     async init() {
         try {
             // 1. Загрузка языка
-            await this.i18n.load('ru');
+            const savedLang = this.i18n.getSavedLanguage();
+            await this.i18n.load(savedLang);
 
             // 2. Загрузка профилей
             await this.loadProfiles();
@@ -180,8 +181,14 @@ class DarkDateApp {
             await this.horror.triggerEntityAccepted();
         }
 
-        // Показ результата
-        this.ui.showResultModal(result);
+        // Показываем результат только для важных событий (сущности, жертвы, охотник)
+        // Для обычных людей (human) показываем только тост-уведомление
+        if (result.type !== 'skip' && result.type !== 'match') {
+            this.ui.showResultModal(result);
+        } else if (result.type === 'match') {
+            // Для совпадений показываем маленький тост вместо модалки
+            this.ui.showToast(this.i18n.t('modal.match_title') + ' 💕', 1500);
+        }
 
         this.currentIndex++;
     }
