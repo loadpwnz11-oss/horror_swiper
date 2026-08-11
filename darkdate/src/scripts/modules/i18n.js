@@ -59,6 +59,20 @@ export class I18n {
         // Здесь можно добавить логику для перевода тегов и био, если они есть в i18n файлах
         // Для динамического перевода можно использовать translateProfileField()
     }
+    
+    /** Получить все поддерживаемые языки с метаданными */
+    getSupportedLanguages() {
+        return {
+            'ru': { name: 'Русский', flag: '🇷🇺' },
+            'en': { name: 'English', flag: '🇬🇧' },
+            'pt-BR': { name: 'Português (BR)', flag: '🇧🇷' },
+            'zh-CN': { name: '中文', flag: '🇨🇳' },
+            'es': { name: 'Español', flag: '🇪🇸' },
+            'ja': { name: '日本語', flag: '🇯🇵' },
+            'de': { name: 'Deutsch', flag: '🇩🇪' },
+            'id': { name: 'Bahasa Indonesia', flag: '🇮🇩' }
+        };
+    }
 
     /** Смена языка */
     async setLanguage(lang) {

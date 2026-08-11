@@ -238,8 +238,32 @@ class DarkDateApp {
             this.profiles = this.shuffleArray(this.profiles);
             this.startRound();
         } else {
-            this.ui.showTimerScreen();
+            // Если сессии кончились, показываем экран таймера
+            this.showNoSessionsScreen();
         }
+    }
+    
+    showNoSessionsScreen() {
+        const screen = document.getElementById('no-sessions-screen');
+        const timerValue = document.getElementById('nosessions-timer-value');
+        screen.classList.remove('hidden');
+        
+        const timerInterval = setInterval(() => {
+            const remaining = this.state.getRecoveryTimeRemaining();
+            
+            if (remaining <= 0) {
+                clearInterval(timerInterval);
+                this.state.checkRecovery();
+                this.ui.updateLives();
+                screen.classList.add('hidden');
+                this.startRound();
+                return;
+            }
+            
+            if (timerValue) {
+                timerValue.textContent = this.state.formatTime(remaining);
+            }
+        }, 1000);
     }
 }
 
