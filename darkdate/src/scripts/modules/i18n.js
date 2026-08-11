@@ -55,9 +55,55 @@ export class I18n {
     
     /** Применить перевод к полям профилей */
     applyToProfiles() {
-        // Перевод полей в profiles.json будет применяться при рендеринге карточек
-        // Здесь можно добавить логику для перевода тегов и био, если они есть в i18n файлах
-        // Для динамического перевода можно использовать translateProfileField()
+        // Переводим все карточки профилей на странице
+        document.querySelectorAll('.profile-card').forEach(card => {
+            const profileId = card.dataset.profileId;
+            if (!profileId) return;
+            
+            // Перевод имени
+            const nameEl = card.querySelector('.card-name');
+            if (nameEl) {
+                const translatedName = this.translateProfileField(profileId, 'name');
+                if (translatedName && translatedName !== `profiles.${profileId}.name`) {
+                    // Сохраняем возраст если есть - берём из data атрибута
+                    const age = nameEl.dataset.age || '';
+                    nameEl.textContent = translatedName + age;
+                }
+            }
+            
+            // Перевод био
+            const bioEl = card.querySelector('.card-bio');
+            if (bioEl) {
+                const translatedBio = this.translateProfileField(profileId, 'bio');
+                if (translatedBio && translatedBio !== `profiles.${profileId}.bio`) {
+                    bioEl.textContent = translatedBio;
+                }
+            }
+            
+            // Перевод тегов
+            const tagContainer = card.querySelector('.card-tags');
+            if (tagContainer) {
+                const tags = [];
+                let index = 0;
+                let translatedTag;
+                while ((translatedTag = this.translateProfileField(profileId, `tags[${index}]`)) 
+                       && translatedTag !== `profiles.${profileId}.tags[${index}]`) {
+                    tags.push(`<span class="card-tag">${translatedTag}</span>`);
+                    index++;
+                }
+                if (tags.length > 0) {
+                    tagContainer.innerHTML = tags.join('');
+                }
+            }
+        });
+        
+        // Переводим штампы LIKE/NOPE
+        document.querySelectorAll('.stamp-like').forEach(el => {
+            el.textContent = this.t('swipe.like');
+        });
+        document.querySelectorAll('.stamp-nope').forEach(el => {
+            el.textContent = this.t('swipe.nope');
+        });
     }
     
     /** Получить все поддерживаемые языки с метаданными */

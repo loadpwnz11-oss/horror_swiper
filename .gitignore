@@ -1,13 +1,12 @@
 ```
-# Dependencies
-node_modules/
-
 # Build artifacts
 dist/
 build/
 *.min.js
-*.min.css
 *.bundle.js
+
+# Dependencies
+node_modules/
 
 # Logs and temp files
 *.log
@@ -21,28 +20,5 @@ build/
 # Editors
 .vscode/
 .idea/
-
-# OS generated files
-.DS_Store
-Thumbs.db
-
-# Coverage reports
-coverage/
-htmlcov/
-*.coverage
-
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
-.venv/
-pip-log.txt
-pip-delete-this-directory.txt
-.tox/
-.coverage
-.nox/
+*.swp
 ```

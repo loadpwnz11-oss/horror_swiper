@@ -81,26 +81,40 @@ export class UIController {
     showResultModal(result) {
         if (result.type === 'skip') return;
 
-        const overlay = document.getElementById('modal-overlay');
-        const icon = document.getElementById('modal-icon');
-        const title = document.getElementById('modal-title');
-        const text = document.getElementById('modal-text');
+        // Для обычных людей (human) не показываем модалку - уже обрабатывается в app.js через toast
+        // Для сущностей, жертв, охотников - добавляем уведомление в бейдж
+        this.addNotification(result);
+    }
 
-        icon.textContent = result.icon || '❓';
+    // === НАКОПЛЕНИЕ УВЕДОМЛЕНИЙ ===
 
-        if (result.titleKey) {
-            title.textContent = this.i18n.t(result.titleKey) || result.title || '';
-        } else {
-            title.textContent = result.title || '';
+    addNotification(result) {
+        const badge = document.getElementById('notif-badge');
+        let count = parseInt(badge?.textContent || '0');
+        count++;
+        
+        if (badge) {
+            badge.textContent = count;
+            badge.classList.remove('hidden');
+            
+            // Красная волна (pulse animation)
+            badge.classList.add('notification-pulse');
+            setTimeout(() => {
+                badge.classList.remove('notification-pulse');
+            }, 300);
         }
 
-        if (result.textKey) {
-            text.textContent = this.i18n.t(result.textKey) || result.text || '';
-        } else {
-            text.textContent = result.text || '';
-        }
+        // Показываем тост-уведомление вместо модалки
+        const message = result.titleKey ? this.i18n.t(result.titleKey) : result.title;
+        this.showToast(message || 'Уведомление', 2000);
+    }
 
-        overlay.classList.remove('hidden');
+    clearNotifications() {
+        const badge = document.getElementById('notif-badge');
+        if (badge) {
+            badge.textContent = '0';
+            badge.classList.add('hidden');
+        }
     }
 
     // === ТОСТ-УВЕДОМЛЕНИЯ (Временные) ===
@@ -232,7 +246,8 @@ export class UIController {
     // === УВЕДОМЛЕНИЯ (Панель) ===
 
     showNotificationsPanel() {
-        // Временная заглушка - можно расширить функционал уведомлений
+        // Очищаем уведомления при открытии панели
+        this.clearNotifications();
         console.log('[UI] Notifications panel clicked');
         this.showToast(this.i18n.t('notifications.empty') || 'Уведомления пусты...', 2000);
     }
