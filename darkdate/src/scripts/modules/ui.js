@@ -26,6 +26,16 @@ export class UIController {
             this.hideModal();
         });
 
+        // Кнопка настроек
+        document.getElementById('btn-settings')?.addEventListener('click', () => {
+            this.showSettingsModal();
+        });
+
+        // Кнопка уведомлений (заглушка)
+        document.getElementById('btn-notifications')?.addEventListener('click', () => {
+            this.showNotificationsPanel();
+        });
+
         // Инициализация аудио при первом тапе
         document.addEventListener('click', () => {
             window.darkdate?.horror?.initAudio();
@@ -93,8 +103,104 @@ export class UIController {
         overlay.classList.remove('hidden');
     }
 
+    // === ТОСТ-УВЕДОМЛЕНИЯ (Временные) ===
+
+    showToast(message, duration = 2000) {
+        // Удаляем существующий тост если есть
+        const existingToast = document.getElementById('toast-notification');
+        if (existingToast) {
+            existingToast.remove();
+        }
+
+        // Создаём новый тост
+        const toast = document.createElement('div');
+        toast.id = 'toast-notification';
+        toast.className = 'toast-notification';
+        toast.textContent = message;
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(30, 30, 30, 0.95);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            max-width: 80%;
+            text-align: center;
+            pointer-events: none;
+        `;
+
+        document.body.appendChild(toast);
+
+        // Показываем
+        requestAnimationFrame(() => {
+            toast.style.opacity = '1';
+        });
+
+        // Скрываем через указанное время
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => toast.remove(), 300);
+        }, duration);
+    }
+
     hideModal() {
         document.getElementById('modal-overlay')?.classList.add('hidden');
+    }
+
+    // === НАСТРОЙКИ (Модальное окно) ===
+
+    showSettingsModal() {
+        const overlay = document.createElement('div');
+        overlay.id = 'settings-overlay';
+        overlay.className = 'modal-overlay';
+        overlay.innerHTML = `
+            <div class="modal" id="settings-modal">
+                <h2 class="modal-title" data-i18n="settings.title">Настройки</h2>
+                <div class="settings-content">
+                    <div class="setting-item">
+                        <label data-i18n="settings.language">Язык:</label>
+                        <select id="language-select">
+                            <option value="ru" ${this.i18n.currentLang === 'ru' ? 'selected' : ''}>Русский</option>
+                            <option value="en" ${this.i18n.currentLang === 'en' ? 'selected' : ''}>English</option>
+                            <option value="pt-BR" ${this.i18n.currentLang === 'pt-BR' ? 'selected' : ''}>Português (BR)</option>
+                            <option value="zh-CN" ${this.i18n.currentLang === 'zh-CN' ? 'selected' : ''}>中文</option>
+                            <option value="es" ${this.i18n.currentLang === 'es' ? 'selected' : ''}>Español</option>
+                            <option value="ja" ${this.i18n.currentLang === 'ja' ? 'selected' : ''}>日本語</option>
+                            <option value="de" ${this.i18n.currentLang === 'de' ? 'selected' : ''}>Deutsch</option>
+                            <option value="id" ${this.i18n.currentLang === 'id' ? 'selected' : ''}>Bahasa Indonesia</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="modal-btn" id="settings-close-btn" data-i18n="modal.continue">Закрыть</button>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        // Обработчик смены языка
+        document.getElementById('language-select').addEventListener('change', async (e) => {
+            await this.i18n.setLanguage(e.target.value);
+            window.darkdate?.renderCards(); // Перерисовать карточки с новым языком
+        });
+
+        // Закрытие модального окна
+        document.getElementById('settings-close-btn').addEventListener('click', () => {
+            overlay.remove();
+        });
+    }
+
+    // === УВЕДОМЛЕНИЯ (Панель) ===
+
+    showNotificationsPanel() {
+        // Временная заглушка - можно расширить функционал уведомлений
+        console.log('[UI] Notifications panel clicked');
+        alert(this.i18n.t('notifications.entity_warning') || 'Уведомления пока пусты...');
     }
 
     // === ТАЙМЕР ===
