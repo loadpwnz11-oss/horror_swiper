@@ -151,7 +151,8 @@ class DarkDateApp {
             <div class="card-stamp stamp-nope" data-i18n="swipe.nope">НЕТ</div>
             <div class="card-info">
                 <div class="card-name ${profile.horrorHints.includes('corrupted_name') ? 'glitch-text' : ''}"
-                     ${profile.horrorHints.includes('corrupted_name') ? `data-text="${profile.name}"` : ''}>
+                     ${profile.horrorHints.includes('corrupted_name') ? `data-text="${profile.name}"` : ''}
+                     data-age="${ageDisplay}">
                     ${profile.name}${ageDisplay}
                 </div>
                 <div class="card-bio ${bioClass}"
