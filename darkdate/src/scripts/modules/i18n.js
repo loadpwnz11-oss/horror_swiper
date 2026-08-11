@@ -60,24 +60,28 @@ export class I18n {
             const profileId = card.dataset.profileId;
             if (!profileId) return;
             
-            // Перевод имени
+            // Перевод имени - сначала пробуем из i18n, потом fallback на оригинал
             const nameEl = card.querySelector('.card-name');
             if (nameEl) {
-                const translatedName = this.translateProfileField(profileId, 'name');
-                if (translatedName && translatedName !== `profiles.${profileId}.name`) {
-                    // Сохраняем возраст если есть - берём из data атрибута
-                    const age = nameEl.dataset.age || '';
-                    nameEl.textContent = translatedName + age;
+                let translatedName = this.translateProfileField(profileId, 'name');
+                const age = nameEl.dataset.age || '';
+                
+                // Если перевода нет, берём оригинальное имя из data-original-name
+                if (!translatedName || translatedName === `profiles.${profileId}.name`) {
+                    translatedName = card.dataset.originalName || nameEl.textContent.replace(age, '');
                 }
+                nameEl.textContent = translatedName + age;
             }
             
             // Перевод био
             const bioEl = card.querySelector('.card-bio');
             if (bioEl) {
-                const translatedBio = this.translateProfileField(profileId, 'bio');
-                if (translatedBio && translatedBio !== `profiles.${profileId}.bio`) {
-                    bioEl.textContent = translatedBio;
+                let translatedBio = this.translateProfileField(profileId, 'bio');
+                // Если перевода нет, берём оригинал из data-original-bio
+                if (!translatedBio || translatedBio === `profiles.${profileId}.bio`) {
+                    translatedBio = card.dataset.originalBio || bioEl.textContent;
                 }
+                bioEl.textContent = translatedBio;
             }
             
             // Перевод тегов
@@ -90,6 +94,13 @@ export class I18n {
                        && translatedTag !== `profiles.${profileId}.tags[${index}]`) {
                     tags.push(`<span class="card-tag">${translatedTag}</span>`);
                     index++;
+                }
+                // Если переводов нет, используем оригинальные теги из data-original-tags
+                if (tags.length === 0) {
+                    const originalTags = JSON.parse(card.dataset.originalTags || '[]');
+                    originalTags.forEach(tag => {
+                        tags.push(`<span class="card-tag">${tag}</span>`);
+                    });
                 }
                 if (tags.length > 0) {
                     tagContainer.innerHTML = tags.join('');
