@@ -93,10 +93,13 @@ export class UIController {
         const badge = document.getElementById('notif-badge');
         
         // Добавляем уведомление в очередь с временем отправки
+        // Храним ключи для перевода, а не переведённый текст
         this.notificationsQueue.push({
             id: Date.now(), // Уникальный ID для удаления
-            title: result.titleKey ? this.i18n.t(result.titleKey) : result.title,
-            text: result.textKey ? this.i18n.t(result.textKey) : result.text,
+            titleKey: result.titleKey,
+            title: result.title, // Фолбэк если нет ключа
+            textKey: result.textKey,
+            text: result.text, // Фолбэк если нет ключа
             icon: result.icon || '🔔',
             timestamp: new Date()
         });
@@ -116,7 +119,9 @@ export class UIController {
 
         // Показываем тост-уведомление с заголовком и текстом
         const notification = this.notificationsQueue[this.notificationsQueue.length - 1];
-        const message = notification.title + (notification.text ? ' ' + notification.text : '');
+        const title = notification.titleKey ? this.i18n.t(notification.titleKey) : notification.title;
+        const text = notification.textKey ? this.i18n.t(notification.textKey) : notification.text;
+        const message = title + (text ? ' ' + text : '');
         this.showToast(message || 'Уведомление', 2000);
     }
 
@@ -270,25 +275,34 @@ export class UIController {
         const overlay = document.createElement('div');
         overlay.id = 'notifications-overlay';
         overlay.className = 'modal-overlay';
+        
+        // Переводим заголовки и тексты уведомлений на текущий язык
+        const translatedNotifications = this.notificationsQueue.map(n => ({
+            ...n,
+            translatedTitle: n.titleKey ? this.i18n.t(n.titleKey) : n.title,
+            translatedText: n.textKey ? this.i18n.t(n.textKey) : n.text,
+            translatedTime: this.formatNotificationTime(n.timestamp)
+        }));
+        
         overlay.innerHTML = `
             <div class="modal modal-notifications" id="notifications-modal">
-                <h2 class="modal-title">🔔 Уведомления (${this.notificationsQueue.length})</h2>
+                <h2 class="modal-title">🔔 ${this.i18n.t('notifications.panel_title') || 'Уведомления'} (${this.notificationsQueue.length})</h2>
                 <div class="notifications-content">
-                    ${this.notificationsQueue.map(n => `
+                    ${translatedNotifications.map(n => `
                         <div class="notification-item" data-id="${n.id}">
                             <span class="notification-icon">${n.icon}</span>
                             <div class="notification-text">
-                                <strong>${n.title}</strong>
-                                <p>${n.text || ''}</p>
-                                <span class="notification-time">${this.formatNotificationTime(n.timestamp)}</span>
+                                <strong>${n.translatedTitle}</strong>
+                                <p>${n.translatedText || ''}</p>
+                                <span class="notification-time">${n.translatedTime}</span>
                             </div>
-                            <button class="notification-delete-btn" data-id="${n.id}" title="Удалить">✕</button>
+                            <button class="notification-delete-btn" data-id="${n.id}" title="${this.i18n.t('notifications.delete') || 'Удалить'}">✕</button>
                         </div>
                     `).join('')}
                 </div>
                 <div class="notifications-actions">
-                    <button class="modal-btn modal-btn-secondary" id="notifications-clear-all" data-i18n="notifications.clear_all">Очистить все</button>
-                    <button class="modal-btn" id="notifications-close-btn" data-i18n="modal.continue">Закрыть</button>
+                    <button class="modal-btn modal-btn-secondary" id="notifications-clear-all" data-i18n="notifications.clear_all">${this.i18n.t('notifications.clear_all')}</button>
+                    <button class="modal-btn" id="notifications-close-btn" data-i18n="modal.continue">${this.i18n.t('modal.continue')}</button>
                 </div>
             </div>
         `;
@@ -341,12 +355,67 @@ export class UIController {
                 minute: '2-digit'
             });
         } else if (hours > 0) {
-            return `${hours} ч ${minutes % 60} мин назад`;
+            const h = hours;
+            const m = minutes % 60;
+            // Используем множественное число правильно для русского языка
+            const hourStr = this.getLocalizedTimeUnit(h, 'hour');
+            const minStr = this.getLocalizedTimeUnit(m, 'minute');
+            return `${h} ${hourStr} ${m} ${minStr} назад`;
         } else if (minutes > 0) {
-            return `${minutes} мин назад`;
+            const m = minutes;
+            const minStr = this.getLocalizedTimeUnit(m, 'minute');
+            return `${m} ${minStr} назад`;
         } else {
-            return 'Только что';
+            return this.i18n.t('notifications.just_now') || 'Только что';
         }
+    }
+
+    // Получение правильной формы единицы времени (минута/минуты/минут)
+    getLocalizedTimeUnit(value, unit) {
+        const lang = this.i18n.currentLang;
+        
+        if (lang === 'ru' || lang === 'id') {
+            // Славянская/индонезийская система множественного числа
+            const lastDigit = value % 10;
+            const lastTwoDigits = value % 100;
+            
+            if (unit === 'hour') {
+                if (lang === 'ru') {
+                    if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return 'ч';
+                    if (lastDigit === 1) return 'ч';
+                    if (lastDigit >= 2 && lastDigit <= 4) return 'ч';
+                    return 'ч';
+                } else {
+                    return 'jam';
+                }
+            }
+            if (unit === 'minute') {
+                if (lang === 'ru') {
+                    if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return 'мин';
+                    if (lastDigit === 1) return 'мин';
+                    if (lastDigit >= 2 && lastDigit <= 4) return 'мин';
+                    return 'мин';
+                } else {
+                    return 'menit';
+                }
+            }
+        }
+        
+        // Для остальных языков упрощённо
+        if (unit === 'hour') {
+            if (lang === 'en' || lang === 'de' || lang === 'es' || lang === 'pt-BR') return 'h';
+            if (lang === 'ja') return '時間';
+            if (lang === 'zh-CN') return '小时';
+            return 'h';
+        }
+        if (unit === 'minute') {
+            if (lang === 'en' || lang === 'de' || lang === 'es' || lang === 'pt-BR') return 'min';
+            if (lang === 'ja') return '分';
+            if (lang === 'zh-CN') return '分钟';
+            return 'min';
+        }
+        
+        return unit;
     }
 
     // Удаление одного уведомления по ID

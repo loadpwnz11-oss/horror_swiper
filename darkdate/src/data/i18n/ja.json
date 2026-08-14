@@ -17,6 +17,8 @@
         "continue": "続行",
         "entity_title": "それは彼女じゃなかった...",
         "entity_text": "あなたはエンティティを受け入れました。奴は今、あなたがどこにいるか知っています。",
+        "entity_dodged_title": "回避した！",
+        "entity_dodged_text": "あなたはエンティティを認識しました。",
         "victim_saved": "あなたは彼女を救った...今のところは。",
         "victim_lost": "あなたは彼女を拒否した。悲鳴が止まった。",
         "hunter_title": "ハンターオンライン",
@@ -36,6 +38,9 @@
         "new_match": "新しいマッチ！",
         "entity_warning": "気をつけて...",
         "empty": "通知はありません...",
-        "clear_all": "すべてクリア"
+        "clear_all": "すべてクリア",
+        "panel_title": "通知",
+        "delete": "削除",
+        "just_now": "たった今"
     }
 }

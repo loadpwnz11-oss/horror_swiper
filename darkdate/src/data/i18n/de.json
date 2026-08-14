@@ -17,6 +17,8 @@
         "continue": "Fortsetzen",
         "entity_title": "Das war sie nicht...",
         "entity_text": "Du hast eine Entität akzeptiert. Sie weiß jetzt, wo du bist.",
+        "entity_dodged_title": "Ausgewichen!",
+        "entity_dodged_text": "Du hast die Entität erkannt.",
         "victim_saved": "Du hast sie gerettet... vorerst.",
         "victim_lost": "Du hast sie abgelehnt. Der Schrei verstummte.",
         "hunter_title": "Jäger online",
@@ -36,6 +38,9 @@
         "new_match": "Neues Match!",
         "entity_warning": "Sei vorsichtig...",
         "empty": "Benachrichtigungen sind leer...",
-        "clear_all": "Alle löschen"
+        "clear_all": "Alle löschen",
+        "panel_title": "Benachrichtigungen",
+        "delete": "Löschen",
+        "just_now": "Gerade eben"
     }
 }

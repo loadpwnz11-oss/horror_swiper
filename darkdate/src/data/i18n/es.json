@@ -17,6 +17,8 @@
         "continue": "Continuar",
         "entity_title": "No era ella...",
         "entity_text": "Aceptaste una entidad. Ahora sabe dónde estás.",
+        "entity_dodged_title": "¡Esquivado!",
+        "entity_dodged_text": "Reconociste la entidad.",
         "victim_saved": "La salvaste... por ahora.",
         "victim_lost": "La rechazaste. El grito se detuvo.",
         "hunter_title": "Cazador en línea",
@@ -36,6 +38,9 @@
         "new_match": "¡Nuevo match!",
         "entity_warning": "Ten cuidado...",
         "empty": "Notificaciones vacías...",
-        "clear_all": "Borrar todo"
+        "clear_all": "Borrar todo",
+        "panel_title": "Notificaciones",
+        "delete": "Eliminar",
+        "just_now": "Ahora mismo"
     }
 }

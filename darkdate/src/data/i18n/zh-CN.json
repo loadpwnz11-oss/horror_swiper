@@ -36,6 +36,9 @@
         "new_match": "新的配对！",
         "entity_warning": "小心...",
         "empty": "通知为空...",
-        "clear_all": "全部清除"
+        "clear_all": "全部清除",
+        "panel_title": "通知",
+        "delete": "删除",
+        "just_now": "刚刚"
     }
 }
