@@ -1,1 +1,38 @@
-Nothing should be ignored since only source code files (.js) were modified and no build artifacts, dependencies, or temporary files were present in the changes.
+```
+# Build artifacts
+dist/
+build/
+*.js.map
+
+# Dependencies
+node_modules/
+
+# Editors
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Python (if applicable)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.coverage
+htmlcov/
+.coverage.*
+.pytest_cache/
+.mypy_cache/
+
+# System files
+.DS_Store
+Thumbs.db
+```

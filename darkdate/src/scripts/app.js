@@ -129,10 +129,6 @@ class DarkDateApp {
         card.className = 'profile-card';
         card.dataset.profileId = profile.id;
         card.dataset.profileType = profile.type;
-        // Сохраняем оригинальные данные для перевода
-        card.dataset.originalName = profile.name;
-        card.dataset.originalBio = profile.bio;
-        card.dataset.originalTags = JSON.stringify(profile.tags);
 
         if (stackPosition === 1) card.classList.add('card-behind-1');
         if (stackPosition === 2) card.classList.add('card-behind-2');
@@ -161,8 +157,7 @@ class DarkDateApp {
             <div class="card-stamp stamp-nope" data-i18n="swipe.nope">${this.i18n.t('swipe.nope')}</div>
             <div class="card-info">
                 <div class="card-name ${profile.horrorHints.includes('corrupted_name') ? 'glitch-text' : ''}"
-                     ${profile.horrorHints.includes('corrupted_name') ? `data-text="${profile.name}"` : ''}
-                     data-age="${ageDisplay}">
+                     ${profile.horrorHints.includes('corrupted_name') ? `data-text="${profile.name}"` : ''}>
                     ${displayName}${ageDisplay}
                 </div>
                 <div class="card-bio ${bioClass}"

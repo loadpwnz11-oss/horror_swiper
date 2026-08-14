@@ -218,11 +218,13 @@ export class UIController {
         overlay.querySelectorAll('.lang-btn').forEach(btn => {
             btn.addEventListener('click', async (e) => {
                 const lang = e.currentTarget.dataset.lang;
+                const clickedBtn = e.currentTarget; // Сохраняем ссылку до await
+                
                 await this.i18n.setLanguage(lang);
                 
                 // Обновляем активный класс
                 overlay.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-                e.currentTarget.classList.add('active');
+                clickedBtn.classList.add('active');
                 
                 // Перерисовать карточки с новым языком
                 window.darkdate?.renderCards();

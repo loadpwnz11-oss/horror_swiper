@@ -7,6 +7,7 @@ export class I18n {
     constructor() {
         this.currentLang = 'ru';
         this.translations = {};
+        this.profilesData = null;
         this.supportedLangs = ['ru', 'en', 'pt-BR', 'zh-CN', 'es', 'ja', 'de', 'id'];
     }
 
@@ -17,8 +18,16 @@ export class I18n {
         }
 
         try {
+            // Загружаем основной файл локализации
             const response = await fetch(`src/data/i18n/${lang}.json`);
             this.translations = await response.json();
+            
+            // Загружаем profiles.json если ещё не загружен
+            if (!this.profilesData) {
+                const profilesResponse = await fetch('src/data/profiles.json');
+                this.profilesData = await profilesResponse.json();
+            }
+            
             this.currentLang = lang;
             document.documentElement.lang = lang;
             this.applyToDOM();
@@ -35,15 +44,20 @@ export class I18n {
     /** Получить перевод для профиля по ID и полю */
     translateProfileField(profileId, field, lang = null) {
         const targetLang = lang || this.currentLang;
-        const profileData = this.translations.profiles?.[profileId];
-        if (!profileData) return null;
+        
+        // Ищем профиль в profilesData
+        const profile = this.profilesData?.profiles?.find(p => p.id === profileId);
+        if (!profile || !profile.translations) return null;
+        
+        const translation = profile.translations[targetLang];
+        if (!translation) return null;
         
         // Обработка тегов (массив)
         if (field.startsWith('tags[')) {
             const indexMatch = field.match(/tags\[(\d+)\]/);
             if (indexMatch) {
                 const index = parseInt(indexMatch[1], 10);
-                const tagsArray = profileData.tags;
+                const tagsArray = translation.tags;
                 if (Array.isArray(tagsArray) && tagsArray[index] !== undefined) {
                     return tagsArray[index];
                 }
@@ -52,7 +66,7 @@ export class I18n {
         }
         
         // Обработка обычных полей (name, bio)
-        return profileData[field] || null;
+        return translation[field] || null;
     }
 
     /** Применить переводы ко всем элементам с data-i18n */
@@ -76,51 +90,32 @@ export class I18n {
             const profileId = card.dataset.profileId;
             if (!profileId) return;
             
-            // Перевод имени - сначала пробуем из i18n, потом fallback на оригинал
+            // Находим профиль в profilesData
+            const profile = this.profilesData?.profiles?.find(p => p.id === profileId);
+            if (!profile) return;
+            
+            const translation = profile.translations?.[this.currentLang];
+            if (!translation) return;
+            
+            // Перевод имени с возрастом
             const nameEl = card.querySelector('.card-name');
             if (nameEl) {
-                let translatedName = this.translateProfileField(profileId, 'name');
-                const age = nameEl.dataset.age || '';
-                
-                // Если перевода нет, берём оригинальное имя из data-original-name
-                if (!translatedName || translatedName === `profiles.${profileId}.name`) {
-                    translatedName = card.dataset.originalName || nameEl.textContent.replace(age, '');
-                }
-                nameEl.textContent = translatedName + age;
+                const ageDisplay = profile.age !== null ? `, ${profile.age}` : '';
+                nameEl.textContent = translation.name + ageDisplay;
             }
             
             // Перевод био
             const bioEl = card.querySelector('.card-bio');
             if (bioEl) {
-                let translatedBio = this.translateProfileField(profileId, 'bio');
-                // Если перевода нет, берём оригинал из data-original-bio
-                if (!translatedBio || translatedBio === `profiles.${profileId}.bio`) {
-                    translatedBio = card.dataset.originalBio || bioEl.textContent;
-                }
-                bioEl.textContent = translatedBio;
+                bioEl.textContent = translation.bio;
             }
             
             // Перевод тегов
             const tagContainer = card.querySelector('.card-tags');
-            if (tagContainer) {
-                const tags = [];
-                let index = 0;
-                let translatedTag;
-                while ((translatedTag = this.translateProfileField(profileId, `tags[${index}]`)) 
-                       && translatedTag !== `profiles.${profileId}.tags[${index}]`) {
-                    tags.push(`<span class="card-tag">${translatedTag}</span>`);
-                    index++;
-                }
-                // Если переводов нет, используем оригинальные теги из data-original-tags
-                if (tags.length === 0) {
-                    const originalTags = JSON.parse(card.dataset.originalTags || '[]');
-                    originalTags.forEach(tag => {
-                        tags.push(`<span class="card-tag">${tag}</span>`);
-                    });
-                }
-                if (tags.length > 0) {
-                    tagContainer.innerHTML = tags.join('');
-                }
+            if (tagContainer && Array.isArray(translation.tags)) {
+                tagContainer.innerHTML = translation.tags.map(tag => 
+                    `<span class="card-tag">${tag}</span>`
+                ).join('');
             }
         });
         
@@ -135,8 +130,9 @@ export class I18n {
     
     /** Получить перевод профиля по ID */
     getProfileTranslation(profileId) {
-        const profileData = this.translations.profiles?.[profileId];
-        return profileData || null;
+        const profile = this.profilesData?.profiles?.find(p => p.id === profileId);
+        if (!profile || !profile.translations) return null;
+        return profile.translations[this.currentLang] || null;
     }
     
     /** Получить все поддерживаемые языки с метаданными */

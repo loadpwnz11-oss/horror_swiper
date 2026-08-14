@@ -3,133 +3,508 @@
         {
             "id": "human_01",
             "type": "human",
-            "name": "Алина",
             "age": 24,
-            "bio": "Люблю путешествия и хороший кофе ☕ Ищу того, с кем можно молчать и не скучать.",
-            "tags": ["путешествия", "кофе", "фото"],
             "image": "https://img.magnific.com/premium-photo/sad-unhappy-crying-woman-with-tears-eyes-suffering-from-emotional-shock-loss-grief-life-problems-break-up-relationship-standing-by-window-with-raindrops-female-received-bad-news_122732-2975.jpg",
             "difficulty": 1,
-            "horrorHints": []
+            "horrorHints": [],
+            "translations": {
+                "ru": {
+                    "name": "Алина",
+                    "bio": "Люблю путешествия и хороший кофе ☕ Ищу того, с кем можно молчать и не скучать.",
+                    "tags": ["путешествия", "кофе", "фото"]
+                },
+                "en": {
+                    "name": "Alina",
+                    "bio": "I love travels and good coffee ☕ Looking for someone to be silent with and not get bored.",
+                    "tags": ["travels", "coffee", "photo"]
+                },
+                "pt-BR": {
+                    "name": "Alina",
+                    "bio": "Amo viagens e um bom café ☕ Procuro alguém para ficar em silêncio e não se entediar.",
+                    "tags": ["viagens", "café", "foto"]
+                },
+                "zh-CN": {
+                    "name": "阿琳娜",
+                    "bio": "喜欢旅行和好咖啡☕ 寻找一个可以一起沉默而不无聊的人。",
+                    "tags": ["旅行", "咖啡", "摄影"]
+                },
+                "es": {
+                    "name": "Alina",
+                    "bio": "Me encantan los viajes y el buen café ☕ Busco a alguien con quien poder callar y no aburrirme.",
+                    "tags": ["viajes", "café", "foto"]
+                },
+                "ja": {
+                    "name": "アリーナ",
+                    "bio": "旅行と美味しいコーヒーが好き☕ 黙っていても退屈しない人を探しています。",
+                    "tags": ["旅行", "コーヒー", "写真"]
+                },
+                "de": {
+                    "name": "Alina",
+                    "bio": "Ich liebe Reisen und guten Kaffee ☕ Suche jemanden, mit dem ich schweigen kann, ohne mich zu langweilen.",
+                    "tags": ["Reisen", "Kaffee", "Foto"]
+                },
+                "id": {
+                    "name": "Alina",
+                    "bio": "Saya suka perjalanan dan kopi yang enak ☕ Mencari seseorang untuk diam dan tidak bosan.",
+                    "tags": ["perjalanan", "kopi", "foto"]
+                }
+            }
         },
         {
             "id": "human_02",
             "type": "human",
-            "name": "Дмитрий",
             "age": 28,
-            "bio": "Программист днём, гитарист ночью 🎸 Верю, что лучший код пишется под дождь.",
-            "tags": ["музыка", "IT", "дождь"],
             "image": "https://img.magnific.com/free-photo/thoughtful-man-looking-out-window_53876-146516.jpg",
             "difficulty": 1,
-            "horrorHints": []
+            "horrorHints": [],
+            "translations": {
+                "ru": {
+                    "name": "Дмитрий",
+                    "bio": "Программист днём, гитарист ночью 🎸 Верю, что лучший код пишется под дождь.",
+                    "tags": ["музыка", "IT", "дождь"]
+                },
+                "en": {
+                    "name": "Dmitry",
+                    "bio": "Programmer by day, guitarist by night 🎸 I believe the best code is written in the rain.",
+                    "tags": ["music", "IT", "rain"]
+                },
+                "pt-BR": {
+                    "name": "Dmitry",
+                    "bio": "Programador de dia, guitarrista à noite 🎸 Acredito que o melhor código é escrito na chuva.",
+                    "tags": ["música", "TI", "chuva"]
+                },
+                "zh-CN": {
+                    "name": "德米特里",
+                    "bio": "白天是程序员，晚上是吉他手🎸 我相信最好的代码是在雨中写成的。",
+                    "tags": ["音乐", "IT", "雨"]
+                },
+                "es": {
+                    "name": "Dmitry",
+                    "bio": "Programador de día, guitarrista de noche 🎸 Creo que el mejor código se escribe bajo la lluvia.",
+                    "tags": ["música", "IT", "lluvia"]
+                },
+                "ja": {
+                    "name": "ドミトリー",
+                    "bio": "昼はプログラマー、夜はギタリスト🎸 最高のコードは雨の中で書かれると信じています。",
+                    "tags": ["音楽", "IT", "雨"]
+                },
+                "de": {
+                    "name": "Dmitry",
+                    "bio": "Programmierer bei Tag, Gitarrist bei Nacht 🎸 Ich glaube, der beste Code wird im Regen geschrieben.",
+                    "tags": ["Musik", "IT", "Regen"]
+                },
+                "id": {
+                    "name": "Dmitry",
+                    "bio": "Programmer di siang hari, gitaris di malam hari 🎸 Saya percaya kode terbaik ditulis saat hujan.",
+                    "tags": ["musik", "IT", "hujan"]
+                }
+            }
         },
         {
             "id": "human_03",
             "type": "human",
-            "name": "Мария",
             "age": 22,
-            "bio": "Художница. Рисую портреты и иногда будущее 🎨 Пиши, если не боишься узнать своё.",
-            "tags": ["искусство", "мистика", "кошки"],
             "image": "https://img.magnific.com/premium-photo/charming-young-curly-woman-walking-street_227201-266.jpg",
             "difficulty": 1,
-            "horrorHints": []
+            "horrorHints": [],
+            "translations": {
+                "ru": {
+                    "name": "Мария",
+                    "bio": "Художница. Рисую портреты и иногда будущее 🎨 Пиши, если не боишься узнать своё.",
+                    "tags": ["искусство", "мистика", "кошки"]
+                },
+                "en": {
+                    "name": "Maria",
+                    "bio": "Artist. I paint portraits and sometimes the future 🎨 Write if you're not afraid to learn yours.",
+                    "tags": ["art", "mystic", "cats"]
+                },
+                "pt-BR": {
+                    "name": "Maria",
+                    "bio": "Artista. Pinto retratos e às vezes o futuro 🎨 Escreva se não tiver medo de descobrir o seu.",
+                    "tags": ["arte", "mística", "gatos"]
+                },
+                "zh-CN": {
+                    "name": "玛丽亚",
+                    "bio": "艺术家。我画肖像，有时也画未来🎨 如果你不怕知道你的未来，就写信给我。",
+                    "tags": ["艺术", "神秘", "猫"]
+                },
+                "es": {
+                    "name": "María",
+                    "bio": "Artista. Pinto retratos y a veces el futuro 🎨 Escribe si no tienes miedo de conocer el tuyo.",
+                    "tags": ["arte", "mística", "gatos"]
+                },
+                "ja": {
+                    "name": "マリア",
+                    "bio": "アーティスト。肖像画と、時には未来を描きます🎨 あなたの未来を知ることを恐れないなら、書いてください。",
+                    "tags": ["アート", "神秘", "猫"]
+                },
+                "de": {
+                    "name": "Maria",
+                    "bio": "Künstlerin. Ich male Porträts und manchmal die Zukunft 🎨 Schreib, wenn du keine Angst hast, deine zu erfahren.",
+                    "tags": ["Kunst", "Mystik", "Katzen"]
+                },
+                "id": {
+                    "name": "Maria",
+                    "bio": "Seniman. Saya melukis potret dan kadang-kadang masa depan 🎨 Tulis jika Anda tidak takut mengetahui masa depan Anda.",
+                    "tags": ["seni", "mistik", "kucing"]
+                }
+            }
         },
         {
             "id": "human_04",
             "type": "human",
-            "name": "Артём",
             "age": 26,
-            "bio": "Фитнес-тренер. Помогу стать лучшей версией себя 💪 Или худшей, зависит от настроения.",
-            "tags": ["спорт", "здоровье", "мотивация"],
             "image": "https://img.magnific.com/premium-photo/confident-business-man-walks-near-lake_255847-2907.jpg",
             "difficulty": 1,
-            "horrorHints": []
+            "horrorHints": [],
+            "translations": {
+                "ru": {
+                    "name": "Артём",
+                    "bio": "Фитнес-тренер. Помогу стать лучшей версией себя 💪 Или худшей, зависит от настроения.",
+                    "tags": ["спорт", "здоровье", "мотивация"]
+                },
+                "en": {
+                    "name": "Artem",
+                    "bio": "Fitness trainer. I'll help you become the best version of yourself 💪 Or the worst, depends on the mood.",
+                    "tags": ["sport", "health", "motivation"]
+                },
+                "pt-BR": {
+                    "name": "Artem",
+                    "bio": "Treinador de fitness. Vou ajudá-lo a se tornar a melhor versão de si mesmo 💪 Ou a pior, depende do humor.",
+                    "tags": ["esporte", "saúde", "motivação"]
+                },
+                "zh-CN": {
+                    "name": "阿尔乔姆",
+                    "bio": "健身教练。我会帮助你成为最好的自己💪 或者最坏的，取决于心情。",
+                    "tags": ["运动", "健康", "动力"]
+                },
+                "es": {
+                    "name": "Artem",
+                    "bio": "Entrenador de fitness. Te ayudaré a convertirte en la mejor versión de ti mismo 💪 O la peor, depende del humor.",
+                    "tags": ["deporte", "salud", "motivación"]
+                },
+                "ja": {
+                    "name": "アルテム",
+                    "bio": "フィットネストレーナー。最高の自分になるお手伝いをします💪 それとも最悪の自分になるか、気分次第です。",
+                    "tags": ["スポーツ", "健康", "モチベーション"]
+                },
+                "de": {
+                    "name": "Artem",
+                    "bio": "Fitnesstrainer. Ich helfe dir, die beste Version deiner selbst zu werden 💪 Oder die schlechteste, hängt von der Stimmung ab.",
+                    "tags": ["Sport", "Gesundheit", "Motivation"]
+                },
+                "id": {
+                    "name": "Artem",
+                    "bio": "Pelatih kebugaran. Saya akan membantu Anda menjadi versi terbaik dari diri sendiri 💪 Atau yang terburuk, tergantung suasana hati.",
+                    "tags": ["olahraga", "kesehatan", "motivasi"]
+                }
+            }
         },
         {
             "id": "human_05",
             "type": "human",
-            "name": "Елена",
             "age": 25,
-            "bio": "Врач-терапевт. Лечу тела, но не души 🩺 Ищу того, кто не боится уколов и правды.",
-            "tags": ["медицина", "книги", "вино"],
             "image": "https://img.magnific.com/premium-photo/pensive-young-woman-with-curly-hair-near-window_105609-5913.jpg",
             "difficulty": 1,
-            "horrorHints": []
+            "horrorHints": [],
+            "translations": {
+                "ru": {
+                    "name": "Елена",
+                    "bio": "Врач-терапевт. Лечу тела, но не души 🩺 Ищу того, кто не боится уколов и правды.",
+                    "tags": ["медицина", "книги", "вино"]
+                },
+                "en": {
+                    "name": "Elena",
+                    "bio": "Therapist. I heal bodies, but not souls 🩺 Looking for someone who's not afraid of injections and truth.",
+                    "tags": ["medicine", "books", "wine"]
+                },
+                "pt-BR": {
+                    "name": "Elena",
+                    "bio": "Terapeuta. Curo corpos, mas não almas 🩺 Procuro alguém que não tenha medo de injeções e da verdade.",
+                    "tags": ["medicina", "livros", "vinho"]
+                },
+                "zh-CN": {
+                    "name": "叶莲娜",
+                    "bio": "治疗师。我治愈身体，但不治愈灵魂🩺 寻找一个不怕打针和真相的人。",
+                    "tags": ["医学", "书籍", "葡萄酒"]
+                },
+                "es": {
+                    "name": "Elena",
+                    "bio": "Terapeuta. Curo cuerpos, pero no almas 🩺 Busco a alguien que no tenga miedo de las inyecciones y la verdad.",
+                    "tags": ["medicina", "libros", "vino"]
+                },
+                "ja": {
+                    "name": "エレーナ",
+                    "bio": "治療医。体は治しますが、魂は治しません🩺 注射と真実を恐れない人を探しています。",
+                    "tags": ["医学", "本", "ワイン"]
+                },
+                "de": {
+                    "name": "Elena",
+                    "bio": "Therapeutin. Ich heile Körper, aber nicht Seelen 🩺 Suche jemanden, der keine Angst vor Spritzen und Wahrheit hat.",
+                    "tags": ["Medizin", "Bücher", "Wein"]
+                },
+                "id": {
+                    "name": "Elena",
+                    "bio": "Terapis. Saya menyembuhkan tubuh, tetapi bukan jiwa 🩺 Mencari seseorang yang tidak takut suntikan dan kebenaran.",
+                    "tags": ["kedokteran", "buku", "anggur"]
+                }
+            }
         },
         {
             "id": "entity_01",
             "type": "entity",
-            "name": "Кристина",
             "age": 23,
-            "bio": "Я всегда рядом. Всегда. Ты просто ещё не обернулся. 💕",
-            "tags": ["вечность", "тишина", "ты"],
             "image": "src/assets/images/entity_01.png",
             "difficulty": 3,
-            "horrorHints": [
-                "bio_repeat_word",
-                "subtle_glitch",
-                "eye_anomaly"
-            ],
+            "horrorHints": ["bio_repeat_word", "subtle_glitch", "eye_anomaly"],
             "debuffOnView": "darkness",
-            "debuffDuration": 5000
+            "debuffDuration": 5000,
+            "translations": {
+                "ru": {
+                    "name": "Кристина",
+                    "bio": "Я всегда рядом. Всегда. Ты просто ещё не обернулся. 💕",
+                    "tags": ["вечность", "тишина", "ты"]
+                },
+                "en": {
+                    "name": "Kristina",
+                    "bio": "I'm always near. Always. You just haven't turned around yet. 💕",
+                    "tags": ["eternity", "silence", "you"]
+                },
+                "pt-BR": {
+                    "name": "Kristina",
+                    "bio": "Estou sempre perto. Sempre. Você só ainda não se virou. 💕",
+                    "tags": ["eternidade", "silêncio", "você"]
+                },
+                "zh-CN": {
+                    "name": "克里斯蒂娜",
+                    "bio": "我一直在附近。一直。你只是还没有转过身来。💕",
+                    "tags": ["永恒", "沉默", "你"]
+                },
+                "es": {
+                    "name": "Kristina",
+                    "bio": "Siempre estoy cerca. Siempre. Solo aún no te has girado. 💕",
+                    "tags": ["eternidad", "silencio", "tú"]
+                },
+                "ja": {
+                    "name": "クリスティーナ",
+                    "bio": "私はいつも近くにいる。ずっと。あなたがまだ振り向いていないだけです。💕",
+                    "tags": ["永遠", "沈黙", "あなた"]
+                },
+                "de": {
+                    "name": "Kristina",
+                    "bio": "Ich bin immer in der Nähe. Immer. Du hast dich nur noch nicht umgedreht. 💕",
+                    "tags": ["Ewigkeit", "Stille", "du"]
+                },
+                "id": {
+                    "name": "Kristina",
+                    "bio": "Saya selalu dekat. Selalu. Anda hanya belum berbalik. 💕",
+                    "tags": ["keabadian", "keheningan", "Anda"]
+                }
+            }
         },
         {
             "id": "entity_02",
             "type": "entity",
-            "name": "А̷н̶а̸с̵т̸а̷с̶и̸я̵",
             "age": null,
-            "bio": "П̸о̶м̵о̷г̸и̶ ̸м̵н̷е̶.̸ ̷Я̶ ̸н̶е̷ ̵м̶о̸г̵у̷ ̸н̷а̸й̵т̸и̶ ̵в̷ы̸х̵о̷д̸.̵ ̸Т̸ы̷ ̸м̶о̵ж̶е̸ш̵ь̸ ̷о̷т̸к̷р̵ы̶т̷ь̸ ̵д̶в̸е̵р̶ь̷.̶",
-            "tags": ["помощь", "дверь", "т̸ы̶"],
             "image": "src/assets/images/entity_02.png",
             "difficulty": 2,
-            "horrorHints": [
-                "corrupted_name",
-                "corrupted_bio",
-                "null_age"
-            ],
-            "debuffOnView": null
+            "horrorHints": ["corrupted_name", "corrupted_bio", "null_age"],
+            "debuffOnView": null,
+            "translations": {
+                "ru": {
+                    "name": "А̷н̶а̸с̵т̸а̷с̶и̸я̵",
+                    "bio": "П̸о̶м̵о̷г̸и̶ ̸м̵н̷е̶.̸ ̷Я̶ ̸н̶е̷ ̵м̶о̸г̵у̷ ̸н̷а̸й̵т̸и̶ ̵в̷ы̸х̵о̷д̸.̵ ̸Т̸ы̷ ̸м̶о̵ж̶е̸ш̵ь̸ ̷о̷т̸к̷р̵ы̶т̷ь̸ ̵д̶в̸е̵р̶ь̷.̶",
+                    "tags": ["помощь", "дверь", "т̸ы̶"]
+                },
+                "en": {
+                    "name": "A̷n̶a̸s̵t̸a̷s̶i̸y̵a̷",
+                    "bio": "H̸e̶l̵p̸ ̶m̷e̶.̸ ̷I̶ ̸c̶a̷n̵'̸t̷ ̸f̶i̵n̷d̸ ̵t̷h̸e̶ ̷w̶a̸y̵ ̸o̷u̷t̶.̷ ̸Y̶o̷u̸ ̷c̶a̵n̸ ̷o̷p̶e̷n̵ ̸t̷h̸e̶ ̷d̶o̷o̸r̶.̷",
+                    "tags": ["help", "door", "y̷o̸u̶"]
+                },
+                "pt-BR": {
+                    "name": "A̷n̶a̸s̵t̸a̷s̶i̸y̵a̷",
+                    "bio": "M̸e̶ ̵a̷j̸u̷d̶e̸.̷ ̷E̶u̸ ̸n̶ã̷o̵ ̸c̷o̶n̷s̸i̷g̶o̷ ̵e̷n̸c̶o̷n̵t̷r̸a̷r̶ ̷a̶ ̷s̶a̸í̷d̶a̷.̷ ̸V̶o̷c̸ê̷ ̷p̶o̷d̵e̸ ̷a̷b̶r̷i̷r̶ ̷a̷ ̷p̶o̷r̸t̷a̷.̷",
+                    "tags": ["ajuda", "porta", "v̷o̷c̸ê̶"]
+                },
+                "zh-CN": {
+                    "name": "阿̷娜̶斯̸塔̵西̸娅̷",
+                    "bio": "救̸救̶我̸。̷我̶找̸不̵到̷出̶口̸。̷你̶可̸以̷打̵开̸门̷。̷",
+                    "tags": ["帮助", "门", "你̷"]
+                },
+                "es": {
+                    "name": "A̷n̶a̸s̵t̸a̷s̶i̸y̵a̷",
+                    "bio": "A̷y̶ú̸d̵a̷m̶e̸.̷ ̷N̶o̸ ̵p̷u̶e̷d̸o̷ ̵e̷n̸c̶o̷n̵t̷r̸a̷r̶ ̷l̶a̷ ̷s̶a̷l̸i̷d̶a̷.̷ ̷T̶ú̸ ̷p̶u̷e̷d̵e̸s̷ ̷a̷b̶r̷i̷r̶ ̷l̶a̷ ̷p̶u̷e̷r̸t̶a̷.̷",
+                    "tags": ["ayuda", "puerta", "t̷ú̸"]
+                },
+                "ja": {
+                    "name": "ア̷ナ̶ス̸タ̵シ̸ー̷ヤ̶",
+                    "bio": "助̷け̶て̸。̷出̵口̷が̶見̸つ̵か̷ら̶な̷い̸。̷あ̶な̸た̷が̶扉̵を̷開̸け̷ら̶れ̷る̶。̷",
+                    "tags": ["助け", "扉", "あ̷な̸た̶"]
+                },
+                "de": {
+                    "name": "A̷n̶a̸s̵t̸a̷s̶i̸j̵a̷",
+                    "bio": "H̷i̶l̸f̵ ̷m̶i̸r̷.̷ ̷I̶c̸h̵ ̷k̶a̷n̸n̵ ̷d̶e̷n̸ ̷A̶u̷s̸g̶a̷n̵g̷ ̷n̶i̸c̷h̶t̵ ̷f̶i̷n̸d̶e̷n̷.̷ ̷D̶u̸ ̷k̶a̷n̸n̵s̷t̷ ̷d̶i̷e̷ ̷T̶ü̸r̷ ̷ö̶f̷f̸n̶e̷n̷.̷",
+                    "tags": ["Hilfe", "Tür", "d̷u̸"]
+                },
+                "id": {
+                    "name": "A̷n̶a̸s̵t̸a̷s̶i̸y̵a̷",
+                    "bio": "B̷a̶n̸t̵u̷ ̷s̶a̸y̷a̶.̷ ̷S̶a̷y̸a̵ ̷t̶i̷d̸a̷k̵ ̷b̶i̷s̸a̷ ̷m̶e̷n̸e̷m̶u̷k̶a̷n̷ ̷j̶a̷l̸a̷n̷ ̷k̶e̷l̷u̷a̷r̷.̷ ̷A̷n̸d̵a̷ ̷b̶i̷s̸a̷ ̷m̶e̷m̶b̶u̷k̶a̷ ̷p̶i̷n̸t̷u̷.̷",
+                    "tags": ["bantuan", "pintu", "A̷n̸d̵a̷"]
+                }
+            }
         },
         {
             "id": "entity_03",
             "type": "entity",
-            "name": "Она",
             "age": 25,
-            "bio": "Мы уже встречались. Ты просто не помнишь. Но я помню всё. Каждую ночь.",
-            "tags": ["память", "ночь", "возвращение"],
             "image": "src/assets/images/entity_03.png",
             "difficulty": 4,
-            "horrorHints": [
-                "no_last_name",
-                "menace_pulse",
-                "vision_blur"
-            ],
+            "horrorHints": ["no_last_name", "menace_pulse", "vision_blur"],
             "debuffOnView": "blur",
-            "debuffDuration": 4000
+            "debuffDuration": 4000,
+            "translations": {
+                "ru": {
+                    "name": "Она",
+                    "bio": "Мы уже встречались. Ты просто не помнишь. Но я помню всё. Каждую ночь.",
+                    "tags": ["память", "ночь", "возвращение"]
+                },
+                "en": {
+                    "name": "She",
+                    "bio": "We've met before. You just don't remember. But I remember everything. Every night.",
+                    "tags": ["memory", "night", "return"]
+                },
+                "pt-BR": {
+                    "name": "Ela",
+                    "bio": "Já nos encontramos antes. Você só não lembra. Mas eu lembro de tudo. Todas as noites.",
+                    "tags": ["memória", "noite", "retorno"]
+                },
+                "zh-CN": {
+                    "name": "她",
+                    "bio": "我们以前见过。你只是不记得了。但我记得一切。每个夜晚。",
+                    "tags": ["记忆", "夜晚", "归来"]
+                },
+                "es": {
+                    "name": "Ella",
+                    "bio": "Ya nos hemos conocido antes. Solo no lo recuerdas. Pero yo lo recuerdo todo. Cada noche.",
+                    "tags": ["memoria", "noche", "regreso"]
+                },
+                "ja": {
+                    "name": "彼女",
+                    "bio": "私たちは前に会ったことがあります。あなたは覚えていないだけです。でも私はすべてを覚えています。毎晩。",
+                    "tags": ["記憶", "夜", "帰還"]
+                },
+                "de": {
+                    "name": "Sie",
+                    "bio": "Wir haben uns schon einmal getroffen. Du erinnerst dich nur nicht. Aber ich erinnere mich an alles. Jede Nacht.",
+                    "tags": ["Erinnerung", "Nacht", "Rückkehr"]
+                },
+                "id": {
+                    "name": "Dia",
+                    "bio": "Kita sudah pernah bertemu sebelumnya. Kau hanya tidak ingat. Tapi aku ingat semuanya. Setiap malam.",
+                    "tags": ["ingatan", "malam", "kembali"]
+                }
+            }
         },
         {
             "id": "victim_01",
             "type": "victim",
-            "name": "София",
             "age": 21,
-            "bio": "Пожалуйста, если ты это читаешь — не свайпай влево. Она идёт за мной. Я чувствую. Помоги мне... 😢",
-            "tags": ["помощь", "страх", "последний шанс"],
             "image": "src/assets/images/victim_01.png",
             "difficulty": 2,
-            "horrorHints": [
-                "desperate_bio",
-                "tear_stains"
-            ]
+            "horrorHints": ["desperate_bio", "tear_stains"],
+            "translations": {
+                "ru": {
+                    "name": "София",
+                    "bio": "Пожалуйста, если ты это читаешь — не свайпай влево. Она идёт за мной. Я чувствую. Помоги мне... 😢",
+                    "tags": ["помощь", "страх", "последний шанс"]
+                },
+                "en": {
+                    "name": "Sofia",
+                    "bio": "Please, if you're reading this — don't swipe left. She's coming for me. I can feel it. Help me... 😢",
+                    "tags": ["help", "fear", "last chance"]
+                },
+                "pt-BR": {
+                    "name": "Sofia",
+                    "bio": "Por favor, se você está lendo isso — não deslize para a esquerda. Ela está vindo atrás de mim. Eu sinto. Me ajude... 😢",
+                    "tags": ["ajuda", "medo", "última chance"]
+                },
+                "zh-CN": {
+                    "name": "索菲亚",
+                    "bio": "求求你，如果你看到这个——不要向左滑。她来找我了。我能感觉到。帮帮我...😢",
+                    "tags": ["帮助", "恐惧", "最后的机会"]
+                },
+                "es": {
+                    "name": "Sofía",
+                    "bio": "Por favor, si estás leyendo esto — no deslices a la izquierda. Ella viene por mí. Lo siento. Ayúdame... 😢",
+                    "tags": ["ayuda", "miedo", "última oportunidad"]
+                },
+                "ja": {
+                    "name": "ソフィア",
+                    "bio": "お願い、これを読んでいるなら—左にスワイプしないで。彼女が私を追っている。感じるの。助けて...😢",
+                    "tags": ["助け", "恐怖", "最後のチャンス"]
+                },
+                "de": {
+                    "name": "Sofia",
+                    "bio": "Bitte, wenn du das liest — swipe nicht nach links. Sie kommt hinter mir her. Ich spüre es. Hilf mir... 😢",
+                    "tags": ["Hilfe", "Angst", "letzte Chance"]
+                },
+                "id": {
+                    "name": "Sofia",
+                    "bio": "Tolong, jika Anda membaca ini — jangan geser ke kiri. Dia datang untukku. Aku bisa merasakannya. Bantu aku... 😢",
+                    "tags": ["bantuan", "takut", "kesempatan terakhir"]
+                }
+            }
         },
         {
             "id": "hunter_01",
             "type": "hunter",
-            "name": "Виктор",
             "age": 45,
-            "bio": "Охочусь на то, что прячется среди вас. Лайкни, если хочешь выжить. Я дам тебе подсказку.",
-            "tags": ["охота", "выживание", "правда"],
             "image": "src/assets/images/hunter_01.png",
             "difficulty": 1,
             "horrorHints": [],
-            "hintOnLike": "Следующая сущность боится света. Используй фонарик."
+            "hintOnLike": "Следующая сущность боится света. Используй фонарик.",
+            "translations": {
+                "ru": {
+                    "name": "Виктор",
+                    "bio": "Охочусь на то, что прячется среди вас. Лайкни, если хочешь выжить. Я дам тебе подсказку.",
+                    "tags": ["охота", "выживание", "правда"]
+                },
+                "en": {
+                    "name": "Victor",
+                    "bio": "I hunt what hides among you. Like if you want to survive. I'll give you a hint.",
+                    "tags": ["hunting", "survival", "truth"]
+                },
+                "pt-BR": {
+                    "name": "Victor",
+                    "bio": "Caço o que se esconde entre vocês. Curta se quiser sobreviver. Vou te dar uma dica.",
+                    "tags": ["caça", "sobrevivência", "verdade"]
+                },
+                "zh-CN": {
+                    "name": "维克多",
+                    "bio": "我猎杀隐藏在你们中间的东西。如果你想生存，就点赞。我会给你一个提示。",
+                    "tags": ["狩猎", "生存", "真相"]
+                },
+                "es": {
+                    "name": "Víctor",
+                    "bio": "Cazo lo que se esconde entre vosotros. Dale like si quieres sobrevivir. Te daré una pista.",
+                    "tags": ["caza", "supervivencia", "verdad"]
+                },
+                "ja": {
+                    "name": "ビクター",
+                    "bio": "私はあなた方の中に隠れているものを狩ります。生き延びたいならいいねしてください。ヒントをあげます。",
+                    "tags": ["狩り", "生存", "真実"]
+                },
+                "de": {
+                    "name": "Viktor",
+                    "bio": "Ich jage, was sich unter euch versteckt. Like, wenn du überleben willst. Ich gebe dir einen Hinweis.",
+                    "tags": ["Jagd", "Überleben", "Wahrheit"]
+                },
+                "id": {
+                    "name": "Victor",
+                    "bio": "Saya memburu apa yang bersembunyi di antara kalian. Suka jika Anda ingin bertahan hidup. Saya akan memberikan petunjuk.",
+                    "tags": ["berburu", "kelangsungan hidup", "kebenaran"]
+                }
+            }
         }
     ],
     "entityClues": {
