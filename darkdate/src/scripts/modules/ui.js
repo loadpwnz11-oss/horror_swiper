@@ -314,8 +314,13 @@ export class UIController {
             btn.addEventListener('click', (e) => {
                 const notifId = parseInt(e.currentTarget.dataset.id);
                 this.removeNotification(notifId);
-                // Обновляем панель после удаления
-                this.showNotificationsPanel();
+                // Если это было последнее уведомление, закрываем панель
+                if (this.notifications.length === 0) {
+                    overlay.remove();
+                } else {
+                    // Обновляем панель после удаления
+                    this.showNotificationsPanel();
+                }
             });
         });
 
