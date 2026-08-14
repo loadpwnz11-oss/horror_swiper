@@ -398,6 +398,14 @@ export class UIController {
                 badge.textContent = count;
             }
         }
+        
+        // Если удалили последнее уведомление и панель открыта - закрываем её
+        if (this.notificationsQueue.length === 0) {
+            const overlay = document.getElementById('notifications-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
     }
 
     // === ТАЙМЕР ===

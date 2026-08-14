@@ -137,7 +137,61 @@ body {
 .splash-subtitle {
     font-size: 1rem;
     color: var(--text-secondary);
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+}
+
+.demo-text {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 8px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+
+.demo-letter {
+    animation: pulse-color 2s ease-in-out infinite;
+}
+
+.demo-d {
+    color: #ff6b6b;
+    animation-delay: 0s;
+}
+
+.demo-e {
+    color: #ffd93d;
+    animation-delay: 0.1s;
+}
+
+.demo-m {
+    color: #6bcb77;
+    animation-delay: 0.2s;
+}
+
+.demo-o {
+    color: #4d96ff;
+    animation-delay: 0.3s;
+}
+
+@keyframes pulse-color {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+}
+
+.lpz-signature {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    opacity: 0.8;
 }
 
 .splash-loader {
