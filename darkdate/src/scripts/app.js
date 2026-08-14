@@ -145,26 +145,32 @@ class DarkDateApp {
         const ageDisplay = profile.age !== null ? `, ${profile.age}` : '';
         const bioClass = profile.horrorHints.includes('corrupted_bio') ? 'glitch-text' : '';
 
+        // Получаем перевод профиля из i18n
+        const translatedProfile = this.i18n.getProfileTranslation(profile.id);
+        const displayName = translatedProfile?.name || profile.name;
+        const displayBio = translatedProfile?.bio || profile.bio;
+        const displayTags = translatedProfile?.tags || profile.tags;
+
         card.innerHTML = `
             <div class="card-image-wrapper">
-                <img class="card-image" src="${profile.image}" alt="${profile.name}" loading="lazy"
+                <img class="card-image" src="${profile.image}" alt="${displayName}" loading="lazy"
                      onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22600%22><rect fill=%22%231a1a1a%22 width=%22400%22 height=%22600%22/><text x=%22200%22 y=%22300%22 fill=%22%23333%22 text-anchor=%22middle%22 font-size=%2248%22>?</text></svg>'">
                 <div class="card-gradient"></div>
             </div>
-            <div class="card-stamp stamp-like" data-i18n="swipe.like">НРАВИТСЯ</div>
-            <div class="card-stamp stamp-nope" data-i18n="swipe.nope">НЕТ</div>
+            <div class="card-stamp stamp-like" data-i18n="swipe.like">${this.i18n.t('swipe.like')}</div>
+            <div class="card-stamp stamp-nope" data-i18n="swipe.nope">${this.i18n.t('swipe.nope')}</div>
             <div class="card-info">
                 <div class="card-name ${profile.horrorHints.includes('corrupted_name') ? 'glitch-text' : ''}"
                      ${profile.horrorHints.includes('corrupted_name') ? `data-text="${profile.name}"` : ''}
                      data-age="${ageDisplay}">
-                    ${profile.name}${ageDisplay}
+                    ${displayName}${ageDisplay}
                 </div>
                 <div class="card-bio ${bioClass}"
                      ${bioClass ? `data-text="${profile.bio}"` : ''}>
-                    ${profile.bio}
+                    ${displayBio}
                 </div>
                 <div class="card-tags">
-                    ${profile.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('')}
+                    ${displayTags.map(tag => `<span class="card-tag">${tag}</span>`).join('')}
                 </div>
             </div>
         `;

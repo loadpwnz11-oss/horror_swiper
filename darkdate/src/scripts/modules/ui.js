@@ -8,6 +8,7 @@ export class UIController {
         this.state = state;
         this.i18n = i18n;
         this.timerInterval = null;
+        this.notificationsQueue = []; // Очередь уведомлений
     }
 
     init() {
@@ -31,7 +32,7 @@ export class UIController {
             this.showSettingsModal();
         });
 
-        // Кнопка уведомлений (заглушка)
+        // Кнопка уведомлений - показывает панель с накопленными уведомлениями
         document.getElementById('btn-notifications')?.addEventListener('click', () => {
             this.showNotificationsPanel();
         });
@@ -90,8 +91,15 @@ export class UIController {
 
     addNotification(result) {
         const badge = document.getElementById('notif-badge');
-        let count = parseInt(badge?.textContent || '0');
-        count++;
+        
+        // Добавляем уведомление в очередь
+        this.notificationsQueue.push({
+            title: result.titleKey ? this.i18n.t(result.titleKey) : result.title,
+            text: result.textKey ? this.i18n.t(result.textKey) : result.text,
+            icon: result.icon || '🔔'
+        });
+        
+        let count = this.notificationsQueue.length;
         
         if (badge) {
             badge.textContent = count;
@@ -105,13 +113,13 @@ export class UIController {
         }
 
         // Показываем тост-уведомление с заголовком и текстом
-        const title = result.titleKey ? this.i18n.t(result.titleKey) : result.title;
-        const text = result.textKey ? this.i18n.t(result.textKey) : result.text;
-        const message = title + (text ? ' ' + text : '');
+        const notification = this.notificationsQueue[this.notificationsQueue.length - 1];
+        const message = notification.title + (notification.text ? ' ' + notification.text : '');
         this.showToast(message || 'Уведомление', 2000);
     }
 
     clearNotifications() {
+        this.notificationsQueue = [];
         const badge = document.getElementById('notif-badge');
         if (badge) {
             badge.textContent = '0';
@@ -248,10 +256,49 @@ export class UIController {
     // === УВЕДОМЛЕНИЯ (Панель) ===
 
     showNotificationsPanel() {
-        // Очищаем уведомления при открытии панели
-        this.clearNotifications();
-        console.log('[UI] Notifications panel clicked');
-        this.showToast(this.i18n.t('notifications.empty') || 'Уведомления пусты...', 2000);
+        // Показываем панель с накопленными уведомлениями
+        if (this.notificationsQueue.length === 0) {
+            this.showToast(this.i18n.t('notifications.empty') || 'Уведомления пусты...', 2000);
+            return;
+        }
+        
+        // Создаём панель уведомлений
+        const overlay = document.createElement('div');
+        overlay.id = 'notifications-overlay';
+        overlay.className = 'modal-overlay';
+        overlay.innerHTML = `
+            <div class="modal modal-notifications" id="notifications-modal">
+                <h2 class="modal-title">🔔 Уведомления (${this.notificationsQueue.length})</h2>
+                <div class="notifications-content">
+                    ${this.notificationsQueue.map(n => `
+                        <div class="notification-item">
+                            <span class="notification-icon">${n.icon}</span>
+                            <div class="notification-text">
+                                <strong>${n.title}</strong>
+                                <p>${n.text || ''}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                <button class="modal-btn" id="notifications-close-btn" data-i18n="modal.continue">Закрыть</button>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        // Закрытие модального окна
+        document.getElementById('notifications-close-btn').addEventListener('click', () => {
+            overlay.remove();
+            this.clearNotifications();
+        });
+        
+        // Закрытие по клику вне модалки
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.remove();
+                this.clearNotifications();
+            }
+        });
     }
 
     // === ТАЙМЕР ===

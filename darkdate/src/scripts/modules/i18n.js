@@ -117,6 +117,12 @@ export class I18n {
         });
     }
     
+    /** Получить перевод профиля по ID */
+    getProfileTranslation(profileId) {
+        const profileData = this.translations.profiles?.[profileId];
+        return profileData || null;
+    }
+    
     /** Получить все поддерживаемые языки с метаданными */
     getSupportedLanguages() {
         return {
