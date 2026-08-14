@@ -45,7 +45,12 @@
         "clear_all": "Clear all",
         "panel_title": "Notifications",
         "delete": "Delete",
-        "just_now": "Just now"
+        "just_now": "Just now",
+        "time_minute_ago": "1 minute ago",
+        "time_minutes_ago": "{{count}} minutes ago",
+        "time_hour_ago": "1 hour ago",
+        "time_hours_ago": "{{count}} hours ago",
+        "time_today": "Today"
     },
     "settings": {
         "title": "Settings",

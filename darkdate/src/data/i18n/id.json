@@ -41,6 +41,11 @@
         "clear_all": "Hapus semua",
         "panel_title": "Notifikasi",
         "delete": "Hapus",
-        "just_now": "Baru saja"
+        "just_now": "Baru saja",
+        "time_minute_ago": "1 menit yang lalu",
+        "time_minutes_ago": "{{count}} menit yang lalu",
+        "time_hour_ago": "1 jam yang lalu",
+        "time_hours_ago": "{{count}} jam yang lalu",
+        "time_today": "Hari ini"
     }
 }

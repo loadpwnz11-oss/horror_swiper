@@ -42,10 +42,15 @@
         "new_match": "Новое совпадение!",
         "entity_warning": "Будь осторожен...",
         "empty": "Уведомления пусты...",
-        "clear_all": "Очистить все",
+        "clear_all": "Очистить всё",
         "panel_title": "Уведомления",
         "delete": "Удалить",
-        "just_now": "Только что"
+        "just_now": "Только что",
+        "time_minute_ago": "1 минуту назад",
+        "time_minutes_ago": "{{count}} минут назад",
+        "time_hour_ago": "1 час назад",
+        "time_hours_ago": "{{count}} часов назад",
+        "time_today": "Сегодня"
     },
     "settings": {
         "title": "Настройки",

@@ -41,6 +41,11 @@
         "clear_all": "Alle löschen",
         "panel_title": "Benachrichtigungen",
         "delete": "Löschen",
-        "just_now": "Gerade eben"
+        "just_now": "Gerade eben",
+        "time_minute_ago": "Vor 1 Minute",
+        "time_minutes_ago": "Vor {{count}} Minuten",
+        "time_hour_ago": "Vor 1 Stunde",
+        "time_hours_ago": "Vor {{count}} Stunden",
+        "time_today": "Heute"
     }
 }
