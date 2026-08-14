@@ -41,7 +41,8 @@
     "notifications": {
         "new_match": "New match!",
         "entity_warning": "Be careful...",
-        "empty": "Notifications are empty..."
+        "empty": "Notifications are empty...",
+        "clear_all": "Clear all"
     },
     "settings": {
         "title": "Settings",

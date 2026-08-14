@@ -34,6 +34,8 @@
     },
     "notifications": {
         "new_match": "¡Nuevo match!",
-        "entity_warning": "Ten cuidado..."
+        "entity_warning": "Ten cuidado...",
+        "empty": "Notificaciones vacías...",
+        "clear_all": "Borrar todo"
     }
 }

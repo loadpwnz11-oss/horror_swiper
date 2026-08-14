@@ -92,11 +92,13 @@ export class UIController {
     addNotification(result) {
         const badge = document.getElementById('notif-badge');
         
-        // Добавляем уведомление в очередь
+        // Добавляем уведомление в очередь с временем отправки
         this.notificationsQueue.push({
+            id: Date.now(), // Уникальный ID для удаления
             title: result.titleKey ? this.i18n.t(result.titleKey) : result.title,
             text: result.textKey ? this.i18n.t(result.textKey) : result.text,
-            icon: result.icon || '🔔'
+            icon: result.icon || '🔔',
+            timestamp: new Date()
         });
         
         let count = this.notificationsQueue.length;
@@ -273,20 +275,41 @@ export class UIController {
                 <h2 class="modal-title">🔔 Уведомления (${this.notificationsQueue.length})</h2>
                 <div class="notifications-content">
                     ${this.notificationsQueue.map(n => `
-                        <div class="notification-item">
+                        <div class="notification-item" data-id="${n.id}">
                             <span class="notification-icon">${n.icon}</span>
                             <div class="notification-text">
                                 <strong>${n.title}</strong>
                                 <p>${n.text || ''}</p>
+                                <span class="notification-time">${this.formatNotificationTime(n.timestamp)}</span>
                             </div>
+                            <button class="notification-delete-btn" data-id="${n.id}" title="Удалить">✕</button>
                         </div>
                     `).join('')}
                 </div>
-                <button class="modal-btn" id="notifications-close-btn" data-i18n="modal.continue">Закрыть</button>
+                <div class="notifications-actions">
+                    <button class="modal-btn modal-btn-secondary" id="notifications-clear-all" data-i18n="notifications.clear_all">Очистить все</button>
+                    <button class="modal-btn" id="notifications-close-btn" data-i18n="modal.continue">Закрыть</button>
+                </div>
             </div>
         `;
 
         document.body.appendChild(overlay);
+
+        // Обработчик удаления отдельного уведомления
+        overlay.querySelectorAll('.notification-delete-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const notifId = parseInt(e.currentTarget.dataset.id);
+                this.removeNotification(notifId);
+                // Обновляем панель после удаления
+                this.showNotificationsPanel();
+            });
+        });
+
+        // Обработчик очистки всех уведомлений
+        document.getElementById('notifications-clear-all')?.addEventListener('click', () => {
+            this.clearNotifications();
+            overlay.remove();
+        });
 
         // Закрытие модального окна - НЕ очищаем уведомления, просто закрываем панель
         document.getElementById('notifications-close-btn').addEventListener('click', () => {
@@ -299,6 +322,48 @@ export class UIController {
                 overlay.remove();
             }
         });
+    }
+
+    // Форматирование времени для уведомления
+    formatNotificationTime(date) {
+        const now = new Date();
+        const diff = now - date;
+        const seconds = Math.floor(diff / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+
+        if (days > 0) {
+            return date.toLocaleDateString(this.i18n.currentLang, { 
+                day: 'numeric', 
+                month: 'short',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        } else if (hours > 0) {
+            return `${hours} ч ${minutes % 60} мин назад`;
+        } else if (minutes > 0) {
+            return `${minutes} мин назад`;
+        } else {
+            return 'Только что';
+        }
+    }
+
+    // Удаление одного уведомления по ID
+    removeNotification(id) {
+        this.notificationsQueue = this.notificationsQueue.filter(n => n.id !== id);
+        
+        // Обновляем бейдж
+        const badge = document.getElementById('notif-badge');
+        if (badge) {
+            const count = this.notificationsQueue.length;
+            if (count === 0) {
+                badge.textContent = '0';
+                badge.classList.add('hidden');
+            } else {
+                badge.textContent = count;
+            }
+        }
     }
 
     // === ТАЙМЕР ===
