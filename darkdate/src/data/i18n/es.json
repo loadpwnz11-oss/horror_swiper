@@ -41,6 +41,11 @@
         "clear_all": "Borrar todo",
         "panel_title": "Notificaciones",
         "delete": "Eliminar",
-        "just_now": "Ahora mismo"
+        "just_now": "Ahora mismo",
+        "time_minute_ago": "Hace 1 minuto",
+        "time_minutes_ago": "Hace {{count}} minutos",
+        "time_hour_ago": "Hace 1 hora",
+        "time_hours_ago": "Hace {{count}} horas",
+        "time_today": "Hoy"
     }
 }

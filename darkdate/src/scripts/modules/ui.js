@@ -357,65 +357,30 @@ export class UIController {
         } else if (hours > 0) {
             const h = hours;
             const m = minutes % 60;
-            // Используем множественное число правильно для русского языка
-            const hourStr = this.getLocalizedTimeUnit(h, 'hour');
-            const minStr = this.getLocalizedTimeUnit(m, 'minute');
-            return `${h} ${hourStr} ${m} ${minStr} назад`;
+            // Используем ключи локализации для времени
+            let timeStr;
+            if (h === 1) {
+                timeStr = this.i18n.t('notifications.time_hour_ago');
+            } else {
+                timeStr = this.i18n.t('notifications.time_hours_ago').replace('{{count}}', h);
+            }
+            if (m > 0) {
+                const minStr = m === 1 
+                    ? this.i18n.t('notifications.time_minute_ago')
+                    : this.i18n.t('notifications.time_minutes_ago').replace('{{count}}', m);
+                return `${timeStr} ${minStr}`;
+            }
+            return timeStr;
         } else if (minutes > 0) {
             const m = minutes;
-            const minStr = this.getLocalizedTimeUnit(m, 'minute');
-            return `${m} ${minStr} назад`;
+            if (m === 1) {
+                return this.i18n.t('notifications.time_minute_ago');
+            } else {
+                return this.i18n.t('notifications.time_minutes_ago').replace('{{count}}', m);
+            }
         } else {
             return this.i18n.t('notifications.just_now') || 'Только что';
         }
-    }
-
-    // Получение правильной формы единицы времени (минута/минуты/минут)
-    getLocalizedTimeUnit(value, unit) {
-        const lang = this.i18n.currentLang;
-        
-        if (lang === 'ru' || lang === 'id') {
-            // Славянская/индонезийская система множественного числа
-            const lastDigit = value % 10;
-            const lastTwoDigits = value % 100;
-            
-            if (unit === 'hour') {
-                if (lang === 'ru') {
-                    if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return 'ч';
-                    if (lastDigit === 1) return 'ч';
-                    if (lastDigit >= 2 && lastDigit <= 4) return 'ч';
-                    return 'ч';
-                } else {
-                    return 'jam';
-                }
-            }
-            if (unit === 'minute') {
-                if (lang === 'ru') {
-                    if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return 'мин';
-                    if (lastDigit === 1) return 'мин';
-                    if (lastDigit >= 2 && lastDigit <= 4) return 'мин';
-                    return 'мин';
-                } else {
-                    return 'menit';
-                }
-            }
-        }
-        
-        // Для остальных языков упрощённо
-        if (unit === 'hour') {
-            if (lang === 'en' || lang === 'de' || lang === 'es' || lang === 'pt-BR') return 'h';
-            if (lang === 'ja') return '時間';
-            if (lang === 'zh-CN') return '小时';
-            return 'h';
-        }
-        if (unit === 'minute') {
-            if (lang === 'en' || lang === 'de' || lang === 'es' || lang === 'pt-BR') return 'min';
-            if (lang === 'ja') return '分';
-            if (lang === 'zh-CN') return '分钟';
-            return 'min';
-        }
-        
-        return unit;
     }
 
     // Удаление одного уведомления по ID

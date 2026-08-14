@@ -39,6 +39,11 @@
         "clear_all": "全部清除",
         "panel_title": "通知",
         "delete": "删除",
-        "just_now": "刚刚"
+        "just_now": "刚刚",
+        "time_minute_ago": "1 分钟前",
+        "time_minutes_ago": "{{count}} 分钟前",
+        "time_hour_ago": "1 小时前",
+        "time_hours_ago": "{{count}} 小时前",
+        "time_today": "今天"
     }
 }
