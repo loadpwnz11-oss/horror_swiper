@@ -17,6 +17,8 @@
         "continue": "Lanjutkan",
         "entity_title": "Itu bukan dia...",
         "entity_text": "Kamu menerima entitas. Sekarang ia tahu di mana kamu berada.",
+        "entity_dodged_title": "Terhindar!",
+        "entity_dodged_text": "Kamu mengenali entitas itu.",
         "victim_saved": "Kamu menyelamatkannya... untuk saat ini.",
         "victim_lost": "Kamu menolaknya. Teriakan berhenti.",
         "hunter_title": "Pemburu online",
@@ -36,6 +38,9 @@
         "new_match": "Match baru!",
         "entity_warning": "Hati-hati...",
         "empty": "Notifikasi kosong...",
-        "clear_all": "Hapus semua"
+        "clear_all": "Hapus semua",
+        "panel_title": "Notifikasi",
+        "delete": "Hapus",
+        "just_now": "Baru saja"
     }
 }

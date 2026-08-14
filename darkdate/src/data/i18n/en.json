@@ -42,7 +42,10 @@
         "new_match": "New match!",
         "entity_warning": "Be careful...",
         "empty": "Notifications are empty...",
-        "clear_all": "Clear all"
+        "clear_all": "Clear all",
+        "panel_title": "Notifications",
+        "delete": "Delete",
+        "just_now": "Just now"
     },
     "settings": {
         "title": "Settings",
