@@ -286,17 +286,15 @@ export class UIController {
 
         document.body.appendChild(overlay);
 
-        // Закрытие модального окна
+        // Закрытие модального окна - НЕ очищаем уведомления, просто закрываем панель
         document.getElementById('notifications-close-btn').addEventListener('click', () => {
             overlay.remove();
-            this.clearNotifications();
         });
         
-        // Закрытие по клику вне модалки
+        // Закрытие по клику вне модалки - НЕ очищаем уведомления
         overlay.addEventListener('click', (e) => {
             if (e.target === overlay) {
                 overlay.remove();
-                this.clearNotifications();
             }
         });
     }

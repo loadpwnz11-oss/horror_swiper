@@ -35,8 +35,24 @@ export class I18n {
     /** Получить перевод для профиля по ID и полю */
     translateProfileField(profileId, field, lang = null) {
         const targetLang = lang || this.currentLang;
-        const translationKey = `profiles.${profileId}.${field}`;
-        return this.t(translationKey);
+        const profileData = this.translations.profiles?.[profileId];
+        if (!profileData) return null;
+        
+        // Обработка тегов (массив)
+        if (field.startsWith('tags[')) {
+            const indexMatch = field.match(/tags\[(\d+)\]/);
+            if (indexMatch) {
+                const index = parseInt(indexMatch[1], 10);
+                const tagsArray = profileData.tags;
+                if (Array.isArray(tagsArray) && tagsArray[index] !== undefined) {
+                    return tagsArray[index];
+                }
+            }
+            return null;
+        }
+        
+        // Обработка обычных полей (name, bio)
+        return profileData[field] || null;
     }
 
     /** Применить переводы ко всем элементам с data-i18n */
