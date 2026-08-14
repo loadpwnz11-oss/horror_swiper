@@ -1,38 +1,39 @@
 ```
-# Build artifacts
-dist/
-build/
-*.js.map
-
 # Dependencies
 node_modules/
 
-# Editors
-.vscode/
-.idea/
+# Build artifacts
+dist/
+build/
+target/
 
-# Logs
-*.log
-
-# Environment
-.env
-.env.local
-*.env.*
-
-# Python (if applicable)
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-.Python
-*.so
-.coverage
-htmlcov/
-.coverage.*
-.pytest_cache/
-.mypy_cache/
 
-# System files
+# Environment files
+.env
+.env.local
+.env.*
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.tmp
+
+# Logs
+*.log
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# OS files
 .DS_Store
 Thumbs.db
 ```

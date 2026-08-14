@@ -825,6 +825,29 @@ body {
     margin: 16px 0;
     max-height: 300px;
     overflow-y: auto;
+    /* Стилизация полосы прокрутки */
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-red) var(--bg-secondary);
+}
+
+/* Webkit стилизация скроллбара */
+.modal-notifications .notifications-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-notifications .notifications-content::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 3px;
+}
+
+.modal-notifications .notifications-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--accent-red-dark), var(--accent-red));
+    border-radius: 3px;
+    transition: background var(--transition-fast);
+}
+
+.modal-notifications .notifications-content::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ff4757, #ff6b7a);
 }
 
 .notification-item {
@@ -835,6 +858,7 @@ body {
     background: var(--bg-secondary);
     border-radius: 8px;
     margin-bottom: 8px;
+    position: relative;
 }
 
 .notification-icon {
@@ -858,6 +882,53 @@ body {
     color: var(--text-secondary);
     font-size: 0.85rem;
     line-height: 1.4;
+}
+
+.notification-time {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 6px;
+    font-style: italic;
+}
+
+.notification-delete-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    font-size: 1rem;
+    line-height: 1;
+    transition: all var(--transition-fast);
+    opacity: 0.6;
+}
+
+.notification-delete-btn:hover {
+    color: var(--accent-red);
+    background: rgba(230, 57, 70, 0.1);
+    opacity: 1;
+}
+
+.notifications-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.modal-btn-secondary {
+    background: var(--bg-secondary);
+    border: 2px solid var(--text-muted);
+}
+
+.modal-btn-secondary:hover {
+    background: var(--bg-elevated);
+    border-color: var(--accent-red);
 }
 
 .lang-flag {

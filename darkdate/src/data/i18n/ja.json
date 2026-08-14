@@ -34,6 +34,8 @@
     },
     "notifications": {
         "new_match": "新しいマッチ！",
-        "entity_warning": "気をつけて..."
+        "entity_warning": "気をつけて...",
+        "empty": "通知はありません...",
+        "clear_all": "すべてクリア"
     }
 }

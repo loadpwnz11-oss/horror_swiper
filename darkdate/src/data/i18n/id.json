@@ -34,6 +34,8 @@
     },
     "notifications": {
         "new_match": "Match baru!",
-        "entity_warning": "Hati-hati..."
+        "entity_warning": "Hati-hati...",
+        "empty": "Notifikasi kosong...",
+        "clear_all": "Hapus semua"
     }
 }

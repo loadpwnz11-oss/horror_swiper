@@ -34,6 +34,8 @@
     },
     "notifications": {
         "new_match": "新的配对！",
-        "entity_warning": "小心..."
+        "entity_warning": "小心...",
+        "empty": "通知为空...",
+        "clear_all": "全部清除"
     }
 }
