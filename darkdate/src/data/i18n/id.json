@@ -1,0 +1,67 @@
+{
+    "splash": {
+        "subtitle": "Temukan belahan gelapmu"
+    },
+    "lives": {
+        "round": "Ronde",
+        "session": "Sesi"
+    },
+    "empty": {
+        "title": "Itu saja untuk hari ini...",
+        "subtitle": "Kembali nanti, jika kamu berani"
+    },
+    "timer": {
+        "next": "Percobaan berikutnya dalam:"
+    },
+    "modal": {
+        "continue": "Lanjutkan",
+        "entity_title": "Itu bukan dia...",
+        "entity_text": "Kamu menerima entitas. Sekarang ia tahu di mana kamu berada.",
+        "entity_dodged_title": "Terhindar!",
+        "entity_dodged_text": "Kamu mengenali entitas itu.",
+        "victim_saved": "Kamu menyelamatkannya... untuk sementara.",
+        "victim_lost": "Kamu menolaknya. Teriakan berhenti.",
+        "hunter_title": "Pemburu online",
+        "match_title": "Ini Match!",
+        "match_text": "Sekarang kalian bisa mengobrol."
+    },
+    "gameover": {
+        "title": "GAME OVER",
+        "subtitle": "Dia menemukanmu...",
+        "restart": "Coba lagi"
+    },
+    "nosessions": {
+        "title": "Sesi habis",
+        "subtitle": "Istirahatlah... Dia akan menunggu."
+    },
+    "swipe": {
+        "like": "SUKA",
+        "nope": "TIDAK"
+    },
+    "notifications": {
+        "new_match": "Match baru!",
+        "entity_warning": "Hati-hati...",
+        "empty": "Notifikasi kosong...",
+        "clear_all": "Hapus semua",
+        "panel_title": "Notifikasi",
+        "delete": "Hapus",
+        "just_now": "Baru saja",
+        "time_minute_ago": "1 menit yang lalu",
+        "time_minutes_ago": "{{count}} menit yang lalu",
+        "time_hour_ago": "1 jam yang lalu",
+        "time_hours_ago": "{{count}} jam yang lalu",
+        "time_today": "Hari ini"
+    },
+    "settings": {
+        "title": "Pengaturan",
+        "language": "Bahasa",
+        "data": "Data",
+        "reset_progress": "Reset progres",
+        "reset_confirm": "Yakin? Semua progres akan hilang.",
+        "reset_done": "Progres direset!"
+    },
+    "debuff": {
+        "darkness": "Kegelapan! Gunakan senter 📍 (ketuk layar)",
+        "blur": "Penglihatan kabur! 👁️"
+    }
+}

@@ -338,10 +338,10 @@ class DarkDateApp {
                     clearInterval(this.timerInterval);
                     this.timerInterval = null;
                 }
+                // Сбрасываем флаг pendingRecoveryScreen
+                this.state.pendingRecoveryScreen = false;
                 this.startRound();
             };
-        } else {
-            this.startRound();
         }
     }
 

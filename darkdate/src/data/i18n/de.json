@@ -30,6 +30,10 @@
         "subtitle": "Sie hat dich gefunden...",
         "restart": "Nochmal versuchen"
     },
+    "nosessions": {
+        "title": "Sitzungen erschöpft",
+        "subtitle": "Ruhe dich aus... Sie wird warten."
+    },
     "swipe": {
         "like": "LIKE",
         "nope": "NEIN"
@@ -48,8 +52,16 @@
         "time_hours_ago": "Vor {{count}} Stunden",
         "time_today": "Heute"
     },
+    "settings": {
+        "title": "Einstellungen",
+        "language": "Sprache",
+        "data": "Daten",
+        "reset_progress": "Fortschritt zurücksetzen",
+        "reset_confirm": "Bist du sicher? Der gesamte Fortschritt geht verloren.",
+        "reset_done": "Fortschritt zurückgesetzt!"
+    },
     "debuff": {
-        "darkness": "Dunkelheit! Benutze deine Taschenlampe 📍",
+        "darkness": "Dunkelheit! Benutze deine Taschenlampe 📍 (tippe auf den Bildschirm)",
         "blur": "Verschwommene Sicht! 👁️"
     }
 }

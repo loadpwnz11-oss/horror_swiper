@@ -1,0 +1,67 @@
+{
+    "splash": {
+        "subtitle": "找到你黑暗的另一半"
+    },
+    "lives": {
+        "round": "回合",
+        "session": "会话"
+    },
+    "empty": {
+        "title": "今天就到这里...",
+        "subtitle": "如果你敢，稍后再回来"
+    },
+    "timer": {
+        "next": "下次尝试："
+    },
+    "modal": {
+        "continue": "继续",
+        "entity_title": "那不是她...",
+        "entity_text": "你接受了一个实体。它现在知道你在哪里了。",
+        "entity_dodged_title": "躲过了！",
+        "entity_dodged_text": "你认出了实体。",
+        "victim_saved": "你救了她...暂时。",
+        "victim_lost": "你拒绝了她。尖叫声停止了。",
+        "hunter_title": "猎人在线",
+        "match_title": "配对成功！",
+        "match_text": "现在你们可以聊天了。"
+    },
+    "gameover": {
+        "title": "游戏结束",
+        "subtitle": "它找到你了...",
+        "restart": "再试一次"
+    },
+    "nosessions": {
+        "title": "会话已用尽",
+        "subtitle": "休息一下...它会等待。"
+    },
+    "swipe": {
+        "like": "喜欢",
+        "nope": "不喜欢"
+    },
+    "notifications": {
+        "new_match": "新的配对！",
+        "entity_warning": "小心...",
+        "empty": "通知为空...",
+        "clear_all": "清除全部",
+        "panel_title": "通知",
+        "delete": "删除",
+        "just_now": "刚刚",
+        "time_minute_ago": "1 分钟前",
+        "time_minutes_ago": "{{count}}分钟前",
+        "time_hour_ago": "1 小时前",
+        "time_hours_ago": "{{count}}小时前",
+        "time_today": "今天"
+    },
+    "settings": {
+        "title": "设置",
+        "language": "语言",
+        "data": "数据",
+        "reset_progress": "重置进度",
+        "reset_confirm": "确定吗？所有进度将丢失。",
+        "reset_done": "进度已重置！"
+    },
+    "debuff": {
+        "darkness": "黑暗！使用手电筒 📍（点击屏幕）",
+        "blur": "视力模糊！👁️"
+    }
+}
