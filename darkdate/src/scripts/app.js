@@ -200,6 +200,23 @@ class DarkDateApp {
             this.ui.showToast(this.i18n.t('modal.match_title') + ' 💕', 1500);
         }
 
+        // Проверяем, закончился ли раунд (жизни раунда = 0)
+        if (result.roundOver) {
+            // Показываем экран Game Over
+            this.showGameOver();
+            return;
+        }
+
+        // Если потеряна жизнь сессии (раунд начинается заново)
+        if (result.sessionLost) {
+            // Сбрасываем индекс и перемешиваем карточки для нового раунда
+            this.currentIndex = 0;
+            this.profiles = this.shuffleArray(this.profiles);
+            this.ui.updateLives();
+            this.renderCards();
+            return;
+        }
+
         this.currentIndex++;
     }
 
@@ -213,9 +230,17 @@ class DarkDateApp {
 
             case 'entity':
                 if (isLike) {
-                    this.state.loseLife();
+                    const lifeResult = this.state.loseLife();
                     this.ui.updateLives();
-                    return { type: 'entity_hit', icon: '👁️', titleKey: 'modal.entity_title', textKey: 'modal.entity_text' };
+                    // Анимация потери сердца
+                    const sessionContainer = document.getElementById('session-lives');
+                    if (lifeResult.sessionLost) {
+                        this.ui.animateHeartLoss(sessionContainer, lifeResult.sessionLives);
+                    } else {
+                        const roundContainer = document.getElementById('round-lives');
+                        this.ui.animateHeartLoss(roundContainer, lifeResult.roundLives);
+                    }
+                    return { ...lifeResult, type: 'entity_hit', icon: '👁️', titleKey: 'modal.entity_title', textKey: 'modal.entity_text' };
                 }
                 return { type: 'entity_dodged', icon: '✅', titleKey: 'modal.entity_dodged_title', textKey: 'modal.entity_dodged_text' };
 
@@ -257,7 +282,8 @@ class DarkDateApp {
             this.profiles = this.shuffleArray(this.profiles);
             this.startRound();
         } else {
-            // Если сессии кончились и нет активного таймера, показываем экран таймера
+            // Если сессии кончились и нет активного таймера, запускаем таймер
+            this.state.startRecoveryTimer();
             this.showNoSessionsScreen();
         }
     }

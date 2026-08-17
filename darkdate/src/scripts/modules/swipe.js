@@ -168,7 +168,7 @@ export class SwipeEngine {
 
         setTimeout(() => {
             this.app.handleSwipe(direction);
-            this.app.renderCards();
+            // renderCards вызывается внутри handleSwipe при необходимости
         }, 500);
     }
 
