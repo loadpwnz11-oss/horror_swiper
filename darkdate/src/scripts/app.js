@@ -218,6 +218,7 @@ class DarkDateApp {
         }
 
         this.currentIndex++;
+        this.renderCards();
     }
 
     processSwipeResult(profile, isLike) {
