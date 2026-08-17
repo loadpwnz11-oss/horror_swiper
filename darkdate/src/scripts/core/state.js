@@ -34,6 +34,7 @@ export class GameState {
 
             const data = JSON.parse(saved);
             this.sessionLives = data.sessionLives ?? SESSION_LIVES_DEFAULT;
+            this.roundLives = data.roundLives ?? ROUND_LIVES_DEFAULT;
             this.recoveryEndTime = data.recoveryEndTime ?? null;
             this.stats = { ...this.stats, ...data.stats };
 
@@ -50,6 +51,7 @@ export class GameState {
         try {
             const data = {
                 sessionLives: this.sessionLives,
+                roundLives: this.roundLives,
                 recoveryEndTime: this.recoveryEndTime,
                 stats: this.stats,
                 lastSave: Date.now()
@@ -73,19 +75,21 @@ export class GameState {
         // Сначала отнимаем жизни раунда
         if (this.roundLives > 0) {
             this.roundLives--;
-        } else {
-            // Если жизни раунда кончились, отнимаем жизнь сессии
-            if (this.sessionLives > 0) {
-                this.sessionLives--;
+            this.save();
+            return { roundLives: this.roundLives, sessionLives: this.sessionLives };
+        }
+        
+        // Если жизни раунда кончились, отнимаем жизнь сессии
+        if (this.sessionLives > 0) {
+            this.sessionLives--;
+            
+            // Если сессионные жизни кончились — запускаем таймер
+            if (this.sessionLives <= 0 && !this.recoveryEndTime) {
+                this.startRecoveryTimer();
             }
         }
 
         this.save();
-
-        // Если сессионные жизни кончились — запускаем таймер
-        if (this.sessionLives <= 0 && !this.recoveryEndTime) {
-            this.startRecoveryTimer();
-        }
 
         return { roundLives: this.roundLives, sessionLives: this.sessionLives };
     }

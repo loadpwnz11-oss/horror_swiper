@@ -19,6 +19,7 @@ class DarkDateApp {
 
         this.profiles = [];
         this.currentIndex = 0;
+        this.timerInterval = null; // Для таймера восстановления
 
         this.init();
     }
@@ -89,6 +90,9 @@ class DarkDateApp {
         this.state.resetRoundLives();
         this.ui.updateLives();
         this.renderCards();
+        
+        // Скрываем экран game over если он был показан
+        document.getElementById('gameover-screen')?.classList.add('hidden');
     }
 
     renderCards() {
@@ -240,11 +244,20 @@ class DarkDateApp {
 
     restart() {
         document.getElementById('gameover-screen').classList.add('hidden');
+        
+        // Проверяем, активен ли таймер восстановления
+        if (this.state.recoveryEndTime && Date.now() < this.state.recoveryEndTime) {
+            // Таймер ещё активен — показываем экран с таймером
+            this.showNoSessionsScreen();
+            return;
+        }
+        
         if (this.state.hasSessionLives()) {
+            this.state.resetRoundLives(); // Сбрасываем жизни раунда при новом раунде
             this.profiles = this.shuffleArray(this.profiles);
             this.startRound();
         } else {
-            // Если сессии кончились, показываем экран таймера
+            // Если сессии кончились и нет активного таймера, показываем экран таймера
             this.showNoSessionsScreen();
         }
     }
@@ -254,11 +267,17 @@ class DarkDateApp {
         const timerValue = document.getElementById('nosessions-timer-value');
         screen.classList.remove('hidden');
         
-        const timerInterval = setInterval(() => {
+        // Сохраняем интервал в state для возможности очистки при перезагрузке
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+        }
+        
+        this.timerInterval = setInterval(() => {
             const remaining = this.state.getRecoveryTimeRemaining();
             
             if (remaining <= 0) {
-                clearInterval(timerInterval);
+                clearInterval(this.timerInterval);
+                this.timerInterval = null;
                 this.state.checkRecovery();
                 this.ui.updateLives();
                 screen.classList.add('hidden');
