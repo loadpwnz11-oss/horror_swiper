@@ -76,12 +76,21 @@ export class GameState {
         if (this.roundLives > 0) {
             this.roundLives--;
             this.save();
-            return { roundLives: this.roundLives, sessionLives: this.sessionLives };
+            
+            // Если жизни раунда кончились — запускаем Game Over раунда
+            if (this.roundLives <= 0) {
+                return { roundLives: this.roundLives, sessionLives: this.sessionLives, roundOver: true };
+            }
+            
+            return { roundLives: this.roundLives, sessionLives: this.sessionLives, roundOver: false };
         }
         
         // Если жизни раунда кончились, отнимаем жизнь сессии
         if (this.sessionLives > 0) {
             this.sessionLives--;
+            
+            // Сбрасываем жизни раунда для нового раунда
+            this.roundLives = this.maxRoundLives;
             
             // Если сессионные жизни кончились — запускаем таймер
             if (this.sessionLives <= 0 && !this.recoveryEndTime) {
@@ -91,7 +100,7 @@ export class GameState {
 
         this.save();
 
-        return { roundLives: this.roundLives, sessionLives: this.sessionLives };
+        return { roundLives: this.roundLives, sessionLives: this.sessionLives, roundOver: false, sessionLost: true };
     }
 
     /** Безопасный свайп (не сущность) */
@@ -113,6 +122,10 @@ export class GameState {
 
     /** Запуск таймера восстановления */
     startRecoveryTimer() {
+        // Не запускаем таймер, если он уже активен
+        if (this.recoveryEndTime && Date.now() < this.recoveryEndTime) {
+            return;
+        }
         this.recoveryEndTime = Date.now() + RECOVERY_TIME_MS;
         this.save();
     }
