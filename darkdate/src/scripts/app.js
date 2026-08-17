@@ -321,6 +321,28 @@ class DarkDateApp {
                 timerValue.textContent = this.state.formatTime(remaining);
             }
         }, 1000);
+        
+        // === ВРЕМЕННАЯ КНОПКА ДЛЯ ТЕСТА (скрутка таймера) ===
+        const debugSkipBtn = document.getElementById('nosessions-debug-skip');
+        if (debugSkipBtn) {
+            debugSkipBtn.style.display = 'block';
+            debugSkipBtn.onclick = () => {
+                // Устанавливаем время окончания таймера в прошлое
+                this.state.recoveryEndTime = Date.now() - 1000;
+                this.state.save();
+                // Запускаем проверку восстановления
+                this.state.checkRecovery();
+                this.ui.updateLives();
+                screen.classList.add('hidden');
+                if (this.timerInterval) {
+                    clearInterval(this.timerInterval);
+                    this.timerInterval = null;
+                }
+                this.startRound();
+            };
+        } else {
+            this.startRound();
+        }
     }
 
     /** Очистка ресурсов при закрытии/перезагрузке страницы */
