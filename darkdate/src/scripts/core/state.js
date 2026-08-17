@@ -41,6 +41,12 @@ export class GameState {
             // Проверяем, истёк ли таймер восстановления
             this.checkRecovery();
 
+            // Если после проверки таймера жизней всё ещё нет и таймер активен — нужно показать экран ожидания
+            if (this.sessionLives <= 0 && this.recoveryEndTime) {
+                // Сохраняем флаг для app.js, чтобы он показал экран с таймером при инициализации
+                this.pendingRecoveryScreen = true;
+            }
+
         } catch (e) {
             console.warn('[State] Failed to restore:', e);
         }

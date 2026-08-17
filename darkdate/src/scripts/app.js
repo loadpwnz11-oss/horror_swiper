@@ -45,6 +45,11 @@ class DarkDateApp {
             // 6. Запуск splash screen
             this.showSplash();
 
+            // 7. Проверяем, нужно ли показать экран с таймером восстановления после загрузки
+            if (this.state.pendingRecoveryScreen) {
+                this.showNoSessionsScreen();
+            }
+
         } catch (error) {
             console.error('[DarkDate] Init error:', error);
             document.body.innerHTML = `
@@ -317,9 +322,24 @@ class DarkDateApp {
             }
         }, 1000);
     }
+
+    /** Очистка ресурсов при закрытии/перезагрузке страницы */
+    cleanup() {
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+    }
 }
 
 // Запуск приложения
 document.addEventListener('DOMContentLoaded', () => {
     window.darkdate = new DarkDateApp();
+});
+
+// Очистка таймера при закрытии или перезагрузке страницы
+window.addEventListener('beforeunload', () => {
+    if (window.darkdate) {
+        window.darkdate.cleanup();
+    }
 });
