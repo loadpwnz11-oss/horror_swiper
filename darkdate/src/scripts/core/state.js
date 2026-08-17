@@ -75,17 +75,31 @@ export class GameState {
         // Сначала отнимаем жизни раунда
         if (this.roundLives > 0) {
             this.roundLives--;
-            this.save();
             
-            // Если жизни раунда кончились — запускаем Game Over раунда
+            // Если жизни раунда кончились — отнимаем сессионную жизнь и сбрасываем жизни раунда
             if (this.roundLives <= 0) {
+                // Отнимаем сессионную жизнь
+                if (this.sessionLives > 0) {
+                    this.sessionLives--;
+                }
+                
+                // Сбрасываем жизни раунда для следующего раунда
+                this.roundLives = this.maxRoundLives;
+                
+                // Если сессионные жизни кончились — запускаем таймер
+                if (this.sessionLives <= 0 && !this.recoveryEndTime) {
+                    this.startRecoveryTimer();
+                }
+                
+                this.save();
                 return { roundLives: this.roundLives, sessionLives: this.sessionLives, roundOver: true };
             }
             
+            this.save();
             return { roundLives: this.roundLives, sessionLives: this.sessionLives, roundOver: false };
         }
         
-        // Если жизни раунда кончились, отнимаем жизнь сессии
+        // Если жизни раунда уже были 0, отнимаем жизнь сессии
         if (this.sessionLives > 0) {
             this.sessionLives--;
             
