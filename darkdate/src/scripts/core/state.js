@@ -67,15 +67,23 @@ export class GameState {
 
     /** Потеря жизни */
     loseLife() {
-        if (this.roundLives > 0) this.roundLives--;
-        if (this.sessionLives > 0) this.sessionLives--;
-
         this.stats.entitiesAccepted++;
         this.stats.totalSwipes++;
+
+        // Сначала отнимаем жизни раунда
+        if (this.roundLives > 0) {
+            this.roundLives--;
+        } else {
+            // Если жизни раунда кончились, отнимаем жизнь сессии
+            if (this.sessionLives > 0) {
+                this.sessionLives--;
+            }
+        }
+
         this.save();
 
         // Если сессионные жизни кончились — запускаем таймер
-        if (this.sessionLives <= 0) {
+        if (this.sessionLives <= 0 && !this.recoveryEndTime) {
             this.startRecoveryTimer();
         }
 
