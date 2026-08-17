@@ -182,6 +182,21 @@ export class SwipeEngine {
         if (!profile || !profile.debuffOnView) return;
 
         const horror = this.app.horror;
+        
+        // Показываем уведомление о дебаффе
+        let debuffMessage = '';
+        switch (profile.debuffOnView) {
+            case 'darkness':
+                debuffMessage = this.app.i18n.t('debuff.darkness') || 'Темнота! Используйте фонарик';
+                break;
+            case 'blur':
+                debuffMessage = this.app.i18n.t('debuff.blur') || 'Зрение затуманилось!';
+                break;
+        }
+        
+        if (debuffMessage) {
+            this.app.ui.showToast(debuffMessage, 2500);
+        }
 
         switch (profile.debuffOnView) {
             case 'darkness':

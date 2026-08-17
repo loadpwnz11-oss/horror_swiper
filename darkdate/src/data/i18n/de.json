@@ -47,5 +47,9 @@
         "time_hour_ago": "Vor 1 Stunde",
         "time_hours_ago": "Vor {{count}} Stunden",
         "time_today": "Heute"
+    },
+    "debuff": {
+        "darkness": "Dunkelheit! Benutze deine Taschenlampe 📍",
+        "blur": "Verschwommene Sicht! 👁️"
     }
 }

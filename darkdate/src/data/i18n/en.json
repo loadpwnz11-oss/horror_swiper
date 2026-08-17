@@ -60,6 +60,10 @@
         "reset_confirm": "Are you sure? All progress will be lost.",
         "reset_done": "Progress reset!"
     },
+    "debuff": {
+        "darkness": "Darkness! Use your flashlight 📍",
+        "blur": "Vision blurred! 👁️"
+    },
     "profiles": {
         "human_01": {
             "name": "Alina",
