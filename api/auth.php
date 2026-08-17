@@ -60,9 +60,11 @@ function handleRegister() {
     }
     
     $pdo = getDbConnection();
+    $usersTable = getTableName('users');
+    $sessionsTable = getTableName('sessions');
     
     // Check if username already exists
-    $stmt = $pdo->prepare("SELECT id FROM users WHERE username = ?");
+    $stmt = $pdo->prepare("SELECT id FROM $usersTable WHERE username = ?");
     $stmt->execute([$username]);
     
     if ($stmt->fetch()) {
@@ -74,7 +76,7 @@ function handleRegister() {
     
     // Insert user
     $insertStmt = $pdo->prepare("
-        INSERT INTO users (username, password_hash, email, created_at)
+        INSERT INTO $usersTable (username, password_hash, email, created_at)
         VALUES (?, ?, ?, NOW())
     ");
     
@@ -89,7 +91,7 @@ function handleRegister() {
         $expiresAt = date('Y-m-d H:i:s', time() + (SESSION_EXPIRY_HOURS * 3600));
         
         $sessionStmt = $pdo->prepare("
-            INSERT INTO sessions (user_id, token, expires_at)
+            INSERT INTO $sessionsTable (user_id, token, expires_at)
             VALUES (?, ?, ?)
         ");
         $sessionStmt->execute([$userId, $token, $expiresAt]);
@@ -123,9 +125,11 @@ function handleLogin() {
     }
     
     $pdo = getDbConnection();
+    $usersTable = getTableName('users');
+    $sessionsTable = getTableName('sessions');
     
     // Get user
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt = $pdo->prepare("SELECT * FROM $usersTable WHERE username = ?");
     $stmt->execute([$username]);
     $user = $stmt->fetch();
     
@@ -145,7 +149,7 @@ function handleLogin() {
     }
     
     // Update last login
-    $updateStmt = $pdo->prepare("UPDATE users SET last_login = NOW() WHERE id = ?");
+    $updateStmt = $pdo->prepare("UPDATE $usersTable SET last_login = NOW() WHERE id = ?");
     $updateStmt->execute([$user['id']]);
     
     // Create session token
@@ -153,7 +157,7 @@ function handleLogin() {
     $expiresAt = date('Y-m-d H:i:s', time() + (SESSION_EXPIRY_HOURS * 3600));
     
     $sessionStmt = $pdo->prepare("
-        INSERT INTO sessions (user_id, token, expires_at)
+        INSERT INTO $sessionsTable (user_id, token, expires_at)
         VALUES (?, ?, ?)
     ");
     $sessionStmt->execute([$user['id'], $token, $expiresAt]);
@@ -187,7 +191,8 @@ function handleLogout() {
     $token = str_replace('Bearer ', '', $headers['Authorization'] ?? '');
     
     $pdo = getDbConnection();
-    $stmt = $pdo->prepare("DELETE FROM sessions WHERE token = ?");
+    $sessionsTable = getTableName('sessions');
+    $stmt = $pdo->prepare("DELETE FROM $sessionsTable WHERE token = ?");
     $stmt->execute([$token]);
     
     logUserAction($user['id'], 'user_logged_out', []);

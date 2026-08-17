@@ -10,6 +10,9 @@ define('DB_USER', 'root'); // Change in production!
 define('DB_PASS', '');     // Change in production!
 define('DB_CHARSET', 'utf8mb4');
 
+// Table Prefix (to avoid conflicts with other projects)
+define('DB_PREFIX', 'darkdate_');
+
 // API Security
 define('API_SECRET_KEY', 'CHANGE_THIS_TO_A_SECURE_RANDOM_STRING_IN_PRODUCTION');
 define('SESSION_EXPIRY_HOURS', 24);
@@ -28,6 +31,15 @@ ini_set('display_errors', 1);
 
 // Timezone
 date_default_timezone_set('UTC');
+
+/**
+ * Get table name with prefix
+ * @param string $tableName Base table name
+ * @return string Full table name with prefix
+ */
+function getTableName($tableName) {
+    return DB_PREFIX . $tableName;
+}
 
 /**
  * Get PDO database connection
@@ -96,9 +108,11 @@ function logUserAction($userId, $action, $metadata = []) {
  */
 function updateFearLevel($userId, $change, $triggerEvent) {
     $pdo = getDbConnection();
+    $usersTable = getTableName('users');
+    $fearLogTable = getTableName('fear_log');
     
     // Get current fear level
-    $stmt = $pdo->prepare("SELECT fear_level FROM users WHERE id = ?");
+    $stmt = $pdo->prepare("SELECT fear_level FROM $usersTable WHERE id = ?");
     $stmt->execute([$userId]);
     $user = $stmt->fetch();
     
@@ -106,11 +120,11 @@ function updateFearLevel($userId, $change, $triggerEvent) {
         $newFearLevel = max(0, min(MAX_FEAR_LEVEL, $user['fear_level'] + $change));
         
         // Update user fear level
-        $updateStmt = $pdo->prepare("UPDATE users SET fear_level = ? WHERE id = ?");
+        $updateStmt = $pdo->prepare("UPDATE $usersTable SET fear_level = ? WHERE id = ?");
         $updateStmt->execute([$newFearLevel, $userId]);
         
         // Log fear change
-        $logStmt = $pdo->prepare("INSERT INTO fear_log (user_id, fear_level, trigger_event) VALUES (?, ?, ?)");
+        $logStmt = $pdo->prepare("INSERT INTO $fearLogTable (user_id, fear_level, trigger_event) VALUES (?, ?, ?)");
         $logStmt->execute([$userId, $newFearLevel, $triggerEvent]);
         
         return $newFearLevel;
@@ -126,8 +140,9 @@ function updateFearLevel($userId, $change, $triggerEvent) {
  */
 function isUserBlocked($userId) {
     $pdo = getDbConnection();
+    $usersTable = getTableName('users');
     
-    $stmt = $pdo->prepare("SELECT is_blocked, block_until FROM users WHERE id = ?");
+    $stmt = $pdo->prepare("SELECT is_blocked, block_until FROM $usersTable WHERE id = ?");
     $stmt->execute([$userId]);
     $user = $stmt->fetch();
     
@@ -136,7 +151,7 @@ function isUserBlocked($userId) {
             return true;
         } else {
             // Unblock user
-            $unblockStmt = $pdo->prepare("UPDATE users SET is_blocked = FALSE, block_until = NULL WHERE id = ?");
+            $unblockStmt = $pdo->prepare("UPDATE $usersTable SET is_blocked = FALSE, block_until = NULL WHERE id = ?");
             $unblockStmt->execute([$userId]);
             return false;
         }
@@ -152,10 +167,11 @@ function isUserBlocked($userId) {
  */
 function blockUser($userId, $duration = SPAM_BLOCK_DURATION) {
     $pdo = getDbConnection();
+    $usersTable = getTableName('users');
     
     $blockUntil = date('Y-m-d H:i:s', time() + $duration);
     
-    $stmt = $pdo->prepare("UPDATE users SET is_blocked = TRUE, block_until = ? WHERE id = ?");
+    $stmt = $pdo->prepare("UPDATE $usersTable SET is_blocked = TRUE, block_until = ? WHERE id = ?");
     $stmt->execute([$blockUntil, $userId]);
     
     logUserAction($userId, 'blocked_for_spam', ['duration' => $duration, 'block_until' => $blockUntil]);
@@ -179,9 +195,12 @@ function validateApiRequest() {
     $token = str_replace('Bearer ', '', $token);
     
     $pdo = getDbConnection();
+    $usersTable = getTableName('users');
+    $sessionsTable = getTableName('sessions');
+    
     $stmt = $pdo->prepare("
-        SELECT u.* FROM users u
-        JOIN sessions s ON u.id = s.user_id
+        SELECT u.* FROM $usersTable u
+        JOIN $sessionsTable s ON u.id = s.user_id
         WHERE s.token = ? AND s.expires_at > NOW()
     ");
     $stmt->execute([$token]);
