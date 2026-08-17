@@ -81,10 +81,11 @@ function handlePostStory($action, $user) {
  */
 function getStoryProgress($user) {
     $pdo = getDbConnection();
+    $storyProgressTable = getTableName('story_progress');
     
     $stmt = $pdo->prepare("
         SELECT chapter_id, scene_id, choices_made, completed_at
-        FROM story_progress
+        FROM $storyProgressTable
         WHERE user_id = ?
         ORDER BY chapter_id ASC
     ");
@@ -171,9 +172,10 @@ function makeChoice($user) {
     }
     
     $pdo = getDbConnection();
+    $storyProgressTable = getTableName('story_progress');
     
     // Save choice
-    $existingStmt = $pdo->prepare("SELECT id, choices_made FROM story_progress WHERE user_id = ? AND chapter_id = ?");
+    $existingStmt = $pdo->prepare("SELECT id, choices_made FROM $storyProgressTable WHERE user_id = ? AND chapter_id = ?");
     $existingStmt->execute([$user['id'], $chapterId]);
     $existing = $existingStmt->fetch();
     
@@ -181,11 +183,11 @@ function makeChoice($user) {
     $choices["scene_{$sceneId}"] = $choiceId;
     
     if ($existing) {
-        $updateStmt = $pdo->prepare("UPDATE story_progress SET choices_made = ? WHERE user_id = ? AND chapter_id = ?");
+        $updateStmt = $pdo->prepare("UPDATE $storyProgressTable SET choices_made = ? WHERE user_id = ? AND chapter_id = ?");
         $updateStmt->execute([json_encode($choices), $user['id'], $chapterId]);
     } else {
         $insertStmt = $pdo->prepare("
-            INSERT INTO story_progress (user_id, chapter_id, scene_id, choices_made)
+            INSERT INTO $storyProgressTable (user_id, chapter_id, scene_id, choices_made)
             VALUES (?, ?, ?, ?)
         ");
         $insertStmt->execute([$user['id'], $chapterId, $sceneId, json_encode($choices)]);
@@ -226,15 +228,16 @@ function startChapter($user) {
     }
     
     $pdo = getDbConnection();
+    $storyProgressTable = getTableName('story_progress');
     
     // Check if already started
-    $stmt = $pdo->prepare("SELECT id FROM story_progress WHERE user_id = ? AND chapter_id = ?");
+    $stmt = $pdo->prepare("SELECT id FROM $storyProgressTable WHERE user_id = ? AND chapter_id = ?");
     $stmt->execute([$user['id'], $chapterId]);
     
     if (!$stmt->fetch()) {
         // Start new chapter
         $insertStmt = $pdo->prepare("
-            INSERT INTO story_progress (user_id, chapter_id, scene_id, choices_made)
+            INSERT INTO $storyProgressTable (user_id, chapter_id, scene_id, choices_made)
             VALUES (?, ?, 1, '{}')
         ");
         $insertStmt->execute([$user['id'], $chapterId]);
@@ -270,8 +273,9 @@ function isChapterUnlocked($userId, $chapterId) {
  */
 function isChapterCompleted($userId, $chapterId) {
     $pdo = getDbConnection();
+    $storyProgressTable = getTableName('story_progress');
     
-    $stmt = $pdo->prepare("SELECT completed_at FROM story_progress WHERE user_id = ? AND chapter_id = ? AND completed_at IS NOT NULL");
+    $stmt = $pdo->prepare("SELECT completed_at FROM $storyProgressTable WHERE user_id = ? AND chapter_id = ? AND completed_at IS NOT NULL");
     $stmt->execute([$userId, $chapterId]);
     
     return $stmt->fetch() !== false;

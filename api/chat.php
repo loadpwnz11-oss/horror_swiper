@@ -81,12 +81,13 @@ function handlePostMessage($action, $user) {
  */
 function getChatHistory($user) {
     $pdo = getDbConnection();
+    $messagesTable = getTableName('messages');
     $limit = min((int)($_GET['limit'] ?? 50), 100);
     $offset = (int)($_GET['offset'] ?? 0);
     
     $stmt = $pdo->prepare("
         SELECT id, sender_type, sender_id, content, timestamp, is_read, message_type
-        FROM messages
+        FROM $messagesTable
         WHERE user_id = ?
         ORDER BY timestamp DESC
         LIMIT ? OFFSET ?
@@ -114,9 +115,10 @@ function getChatHistory($user) {
  */
 function getNotifications($user) {
     $pdo = getDbConnection();
+    $notificationsTable = getTableName('notifications');
     $unreadOnly = isset($_GET['unread']);
     
-    $query = "SELECT * FROM notifications WHERE user_id = ?";
+    $query = "SELECT * FROM $notificationsTable WHERE user_id = ?";
     if ($unreadOnly) {
         $query .= " AND is_read = FALSE";
     }
@@ -139,9 +141,12 @@ function getNotifications($user) {
  */
 function getChatStatus($user) {
     $pdo = getDbConnection();
+    $usersTable = getTableName('users');
+    $messagesTable = getTableName('messages');
+    $notificationsTable = getTableName('notifications');
     
     // Get fresh user data
-    $stmt = $pdo->prepare("SELECT fear_level, is_blocked, block_until FROM users WHERE id = ?");
+    $stmt = $pdo->prepare("SELECT fear_level, is_blocked, block_until FROM $usersTable WHERE id = ?");
     $stmt->execute([$user['id']]);
     $userData = $stmt->fetch();
     
@@ -151,16 +156,16 @@ function getChatStatus($user) {
     }
     
     // Get unread counts
-    $msgStmt = $pdo->prepare("SELECT COUNT(*) FROM messages WHERE user_id = ? AND is_read = FALSE");
+    $msgStmt = $pdo->prepare("SELECT COUNT(*) FROM $messagesTable WHERE user_id = ? AND is_read = FALSE");
     $msgStmt->execute([$user['id']]);
     $unreadMessages = $msgStmt->fetchColumn();
     
-    $notifStmt = $pdo->prepare("SELECT COUNT(*) FROM notifications WHERE user_id = ? AND is_read = FALSE");
+    $notifStmt = $pdo->prepare("SELECT COUNT(*) FROM $notificationsTable WHERE user_id = ? AND is_read = FALSE");
     $notifStmt->execute([$user['id']]);
     $unreadNotifications = $notifStmt->fetchColumn();
     
     // Get last message timestamp
-    $lastMsgStmt = $pdo->prepare("SELECT MAX(timestamp) FROM messages WHERE user_id = ?");
+    $lastMsgStmt = $pdo->prepare("SELECT MAX(timestamp) FROM $messagesTable WHERE user_id = ?");
     $lastMsgStmt->execute([$user['id']]);
     $lastMessageAt = $lastMsgStmt->fetchColumn();
     
@@ -197,11 +202,12 @@ function sendMessage($user) {
     }
     
     $pdo = getDbConnection();
+    $messagesTable = getTableName('messages');
     
     // Spam detection: check message frequency
     $oneMinuteAgo = date('Y-m-d H:i:s', time() - 60);
     $spamStmt = $pdo->prepare("
-        SELECT COUNT(*) FROM messages 
+        SELECT COUNT(*) FROM $messagesTable 
         WHERE user_id = ? AND timestamp > ? AND sender_type = 'user'
     ");
     $spamStmt->execute([$user['id'], $oneMinuteAgo]);
@@ -220,7 +226,7 @@ function sendMessage($user) {
     
     // Insert message
     $stmt = $pdo->prepare("
-        INSERT INTO messages (user_id, sender_type, sender_id, content, message_type, timestamp)
+        INSERT INTO $messagesTable (user_id, sender_type, sender_id, content, message_type, timestamp)
         VALUES (?, 'user', ?, ?, ?, NOW())
     ");
     $stmt->execute([$user['id'], $user['username'], $content, $messageType]);
@@ -265,12 +271,13 @@ function markAsRead($user) {
     }
     
     $pdo = getDbConnection();
+    $messagesTable = getTableName('messages');
     
     // Prepare placeholders
     $placeholders = implode(',', array_fill(0, count($messageIds), '?'));
     
     $stmt = $pdo->prepare("
-        UPDATE messages 
+        UPDATE $messagesTable 
         SET is_read = TRUE 
         WHERE user_id = ? AND id IN ($placeholders)
     ");
@@ -287,6 +294,8 @@ function markAsRead($user) {
  */
 function generateBotResponse($userMessage, $userId) {
     $pdo = getDbConnection();
+    $messagesTable = getTableName('messages');
+    $notificationsTable = getTableName('notifications');
     
     // Simple response logic
     $responses = [
@@ -324,14 +333,14 @@ function generateBotResponse($userMessage, $userId) {
     $responseTime = date('Y-m-d H:i:s', time() + $delaySeconds);
     
     $stmt = $pdo->prepare("
-        INSERT INTO messages (user_id, sender_type, sender_id, content, timestamp, message_type)
+        INSERT INTO $messagesTable (user_id, sender_type, sender_id, content, timestamp, message_type)
         VALUES (?, 'bot', 'mystery_bot', ?, ?, 'text')
     ");
     $stmt->execute([$userId, $response, $responseTime]);
     
     // Create notification for delayed message
     $notifStmt = $pdo->prepare("
-        INSERT INTO notifications (user_id, title, content, type, trigger_time)
+        INSERT INTO $notificationsTable (user_id, title, content, type, trigger_time)
         VALUES (?, 'New Message', 'You have a new message', 'message', ?)
     ");
     $notifStmt->execute([$userId, $responseTime]);
