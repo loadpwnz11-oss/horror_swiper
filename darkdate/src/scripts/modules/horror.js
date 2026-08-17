@@ -49,7 +49,10 @@ export class HorrorEngine {
     activateFlashlight(duration = 5000) {
         const overlay = this.debuffOverlay;
         overlay.classList.remove('hidden');
-        overlay.classList.add('active');
+        // Небольшая задержка перед добавлением active для плавного появления
+        requestAnimationFrame(() => {
+            overlay.classList.add('active');
+        });
         this.activeDebuffs.add('darkness');
 
         // Отслеживаем палец/мышь для фонарика
@@ -64,9 +67,13 @@ export class HorrorEngine {
         document.addEventListener('touchmove', moveHandler, { passive: true });
 
         setTimeout(() => {
-            overlay.classList.add('hidden');
+            // Плавное исчезновение: сначала убираем active
             overlay.classList.remove('active');
-            this.activeDebuffs.delete('darkness');
+            // Затем скрываем после завершения transition
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                this.activeDebuffs.delete('darkness');
+            }, 500); // Ждём завершения transition (0.5s)
             document.removeEventListener('mousemove', moveHandler);
             document.removeEventListener('touchmove', moveHandler);
         }, duration);

@@ -76,17 +76,19 @@
     z-index: 20;
     pointer-events: none;
     background: radial-gradient(
-        circle 100px at var(--flash-x, 50%) var(--flash-y, 50%),
+        circle 150px at var(--flash-x, 50%) var(--flash-y, 50%),
         transparent 0%,
-        rgba(0, 0, 0, 0.7) 40%,
-        rgba(0, 0, 0, 0.95) 70%,
-        rgba(0, 0, 0, 0.99) 100%
+        rgba(0, 0, 0, 0.6) 40%,
+        rgba(0, 0, 0, 0.85) 70%,
+        rgba(0, 0, 0, 0.95) 100%
     );
+    opacity: 0;
     transition: opacity 0.5s ease;
 }
 
 .debuff-overlay.active {
     pointer-events: auto;
+    opacity: 1;
 }
 
 /* === ГЛИТЧ ТЕКСТА === */

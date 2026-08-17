@@ -340,7 +340,9 @@ class DarkDateApp {
                 }
                 // Сбрасываем флаг pendingRecoveryScreen
                 this.state.pendingRecoveryScreen = false;
-                this.startRound();
+                this.state.save();
+                // Обновляем страницу для корректного состояния
+                window.location.reload();
             };
         }
     }
