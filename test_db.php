@@ -111,12 +111,20 @@ header('Content-Type: text/html; charset=utf-8');
         echo "<h3>4. Тест записи/чтения:</h3>";
         try {
             $test_token = bin2hex(random_bytes(16));
-            $test_user_id = 999999; // Временный ID
+            $expires_at = date('Y-m-d H:i:s', strtotime('+24 hours'));
             
             // Пробуем вставить тестовую запись (если таблица sessions существует)
             if (in_array('darkdate_sessions', $existing_tables)) {
-                $stmt = $pdo->prepare("INSERT INTO darkdate_sessions (user_id, token, created_at) VALUES (?, ?, NOW())");
-                $stmt->execute([$test_user_id, $test_token]);
+                // Сначала создадим тестового пользователя
+                $pdo->exec("SET FOREIGN_KEY_CHECKS=0");
+                $stmt = $pdo->prepare("INSERT INTO darkdate_users (username, email, password_hash, created_at) VALUES (?, ?, ?, NOW())");
+                $test_password_hash = password_hash('test_password', PASSWORD_DEFAULT);
+                $stmt->execute(['test_user_999999', 'test@example.com', $test_password_hash]);
+                $test_user_id = $pdo->lastInsertId();
+                
+                // Теперь создадим тестовую сессию
+                $stmt = $pdo->prepare("INSERT INTO darkdate_sessions (user_id, token, expires_at, created_at) VALUES (?, ?, ?, NOW())");
+                $stmt->execute([$test_user_id, $test_token, $expires_at]);
                 
                 $stmt = $pdo->prepare("SELECT id FROM darkdate_sessions WHERE token = ?");
                 $stmt->execute([$test_token]);
@@ -126,6 +134,9 @@ header('Content-Type: text/html; charset=utf-8');
                     // Удаляем тестовую запись
                     $delStmt = $pdo->prepare("DELETE FROM darkdate_sessions WHERE token = ?");
                     $delStmt->execute([$test_token]);
+                    $delUserStmt = $pdo->prepare("DELETE FROM darkdate_users WHERE id = ?");
+                    $delUserStmt->execute([$test_user_id]);
+                    $pdo->exec("SET FOREIGN_KEY_CHECKS=1");
                     echo "<div class='success'>✅ Тест записи и чтения пройден успешно!</div>";
                 } else {
                     echo "<div class='error'>❌ Не удалось прочитать тестовую запись.</div>";
