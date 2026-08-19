@@ -45,8 +45,6 @@ CREATE TABLE IF NOT EXISTS `darkdate_messages` (
   `message` TEXT NOT NULL,
   `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `is_read` TINYINT(1) DEFAULT 0,
-  `message_type` ENUM('text', 'image', 'audio', 'glitch') DEFAULT 'text',
-  `metadata` JSON,
   FOREIGN KEY (`user_id`) REFERENCES `darkdate_users`(`id`) ON DELETE CASCADE,
   INDEX `idx_user_timestamp` (`user_id`, `timestamp`),
   INDEX `idx_sender_type` (`sender_type`),

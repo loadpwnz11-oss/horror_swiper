@@ -1,1 +1,21 @@
-Nothing needs to be added to .gitignore since only a markdown file (PHASE2_PLAN.md) was modified and there are no build artifacts, dependencies, or temporary files in the changes.
+```
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+
+# Dependencies
+vendor/
+
+# Tests
+tests/
+```

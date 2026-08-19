@@ -86,7 +86,7 @@ function getChatHistory($user) {
     $offset = (int)($_GET['offset'] ?? 0);
     
     $stmt = $pdo->prepare("
-        SELECT id, sender_type, sender_id, content, timestamp, is_read, message_type
+        SELECT id, sender_type, sender_id, message as content, timestamp, is_read, 'text' as message_type
         FROM $messagesTable
         WHERE user_id = ?
         ORDER BY timestamp DESC
@@ -100,11 +100,6 @@ function getChatHistory($user) {
     foreach ($messages as &$msg) {
         $msg['timestamp_formatted'] = date('H:i', strtotime($msg['timestamp']));
         $msg['date_formatted'] = date('d.m.Y', strtotime($msg['timestamp']));
-        
-        // Process glitch messages
-        if ($msg['message_type'] === 'glitch') {
-            $msg['content'] = base64_decode($msg['content']);
-        }
     }
     
     jsonResponse(['messages' => $messages]);
@@ -226,10 +221,10 @@ function sendMessage($user) {
     
     // Insert message
     $stmt = $pdo->prepare("
-        INSERT INTO $messagesTable (user_id, sender_type, sender_id, content, message_type, timestamp)
-        VALUES (?, 'user', ?, ?, ?, NOW())
+        INSERT INTO $messagesTable (user_id, sender_type, sender_id, message, timestamp)
+        VALUES (?, 'user', ?, ?, NOW())
     ");
-    $stmt->execute([$user['id'], $user['username'], $content, $messageType]);
+    $stmt->execute([$user['id'], $user['username'], $content]);
     
     $messageId = $pdo->lastInsertId();
     
@@ -333,17 +328,17 @@ function generateBotResponse($userMessage, $userId) {
     $responseTime = date('Y-m-d H:i:s', time() + $delaySeconds);
     
     $stmt = $pdo->prepare("
-        INSERT INTO $messagesTable (user_id, sender_type, sender_id, content, timestamp, message_type)
-        VALUES (?, 'bot', 'mystery_bot', ?, ?, 'text')
+        INSERT INTO $messagesTable (user_id, sender_type, sender_id, message, timestamp)
+        VALUES (?, 'bot', 'mystery_bot', ?, ?)
     ");
     $stmt->execute([$userId, $response, $responseTime]);
     
     // Create notification for delayed message
     $notifStmt = $pdo->prepare("
-        INSERT INTO $notificationsTable (user_id, title, content, type, trigger_time)
-        VALUES (?, 'New Message', 'You have a new message', 'message', ?)
+        INSERT INTO $notificationsTable (user_id, title, message, type)
+        VALUES (?, 'New Message', 'You have a new message', 'chat')
     ");
-    $notifStmt->execute([$userId, $responseTime]);
+    $notifStmt->execute([$userId]);
     
     return [
         'response' => $response,
