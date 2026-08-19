@@ -127,4 +127,25 @@ CREATE TABLE IF NOT EXISTS `darkdate_spam_logs` (
   INDEX `idx_last_spam` (`last_spam_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Bots configuration table
+CREATE TABLE IF NOT EXISTS `darkdate_bots` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `bot_key` VARCHAR(50) NOT NULL UNIQUE,
+  `name` VARCHAR(100) NOT NULL,
+  `avatar_url` VARCHAR(255),
+  `personality_type` ENUM('friendly', 'mysterious', 'aggressive', 'glitch', 'spammer') NOT NULL DEFAULT 'friendly',
+  `message_frequency` INT DEFAULT 5, -- Messages per hour
+  `active_hours_start` INT DEFAULT 0, -- Hour (0-23)
+  `active_hours_end` INT DEFAULT 23, -- Hour (0-23)
+  `response_delay_min` INT DEFAULT 2, -- Minimum delay in seconds
+  `response_delay_max` INT DEFAULT 10, -- Maximum delay in seconds
+  `fear_trigger_threshold` INT DEFAULT 50, -- Trigger special behavior at this fear level
+  `is_active` TINYINT(1) DEFAULT 1,
+  `script_data` JSON, -- Custom dialogue scripts and behaviors
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX `idx_personality` (`personality_type`),
+  INDEX `idx_active` (`is_active`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 COMMIT;
