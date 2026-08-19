@@ -152,5 +152,49 @@
 2. ✅ Написать SQL-скрипт для создания таблиц.
 3. ✅ Реализовать базовый API для авторизации и чата.
 4. ✅ Создать API для ботов с 5 типами личностей.
+5. ✅ Добавить документацию по контенту (`docs/CONTENT_PLAN.md`).
+6. ✅ Создать тесты для проверки API (`tests/test_api.sh`, `tests/README_TESTS.md`).
 
 **Шаг 1 завершен! Готовы перейти к Шагу 2 (Чат и Сюжет)?**
+
+---
+
+## 📁 Структура Файлов
+
+```
+/workspace
+├── api/                    # PHP API файлы
+│   ├── auth.php           # Регистрация/авторизация
+│   ├── chat.php           # Чат и сообщения
+│   ├── story.php          # Прогресс сюжета
+│   ├── bots.php           # Логика ботов
+│   └── config/
+│       └── database.php   # Подключение к БД
+├── sql/                    # SQL скрипты
+│   ├── darkdate_schema.sql    # Структура БД (8 таблиц)
+│   └── bots_seed.sql          # Начальные данные ботов
+├── docs/                   # Документация
+│   ├── CONTENT_PLAN.md    # Сценарии, фразы ботов, триггеры
+│   └── API_DOCS.md        # Документация API
+├── tests/                  # Тесты
+│   ├── test_api.sh        # Автоматические тесты (bash)
+│   └── README_TESTS.md    # Руководство по тестированию
+└── PHASE2_PLAN.md         # План разработки
+```
+
+## 🧪 Быстрая Проверка
+
+```bash
+# 1. Импортировать БД
+mysql -u root -p darkdate < sql/darkdate_schema.sql
+mysql -u root -p darkdate < sql/bots_seed.sql
+
+# 2. Запустить тесты
+cd /workspace
+chmod +x tests/test_api.sh
+./tests/test_api.sh
+
+# 3. Посмотреть документацию
+cat docs/CONTENT_PLAN.md
+cat tests/README_TESTS.md
+```
