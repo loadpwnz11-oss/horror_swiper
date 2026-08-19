@@ -95,9 +95,7 @@ function getStoryProgress($user) {
     // Parse JSON choices
     foreach ($progress as &$prog) {
         $prog['choices_made'] = json_decode($prog['choices_made'], true);
-        // Map to expected format
-        $prog['chapter_id'] = $prog['chapter'];
-        $prog['scene_id'] = $prog['scene'];
+        // Map to expected format (keep chapter/scene as is, no renaming)
     }
     
     // Get current fear level impact on story
