@@ -134,7 +134,7 @@ try {
     $sceneId = 1;
     $choicesJson = json_encode(['scene_1' => 1]);
     
-    $stmt = $pdo->prepare("INSERT INTO darkdate_story_progress (user_id, chapter_id, scene_id, choices_made, created_at) VALUES (?, ?, ?, ?, NOW())");
+    $stmt = $pdo->prepare("INSERT INTO darkdate_story_progress (user_id, chapter, scene, choices_made, created_at) VALUES (?, ?, ?, ?, NOW())");
     $stmt->execute([$userId, $chapterId, $sceneId, $choicesJson]);
     $progressId = $pdo->lastInsertId();
     
@@ -155,7 +155,7 @@ echo "<h2>5️⃣ Тест обновления выбора в сюжете</h2
 try {
     $newChoices = json_encode(['scene_1' => 2, 'scene_2' => 1]);
     
-    $stmt = $pdo->prepare("UPDATE darkdate_story_progress SET choices_made = ?, updated_at = NOW() WHERE user_id = ? AND chapter_id = 1");
+    $stmt = $pdo->prepare("UPDATE darkdate_story_progress SET choices_made = ?, updated_at = NOW() WHERE user_id = ? AND chapter = 1");
     $stmt->execute([$newChoices, $userId]);
     $affectedRows = $stmt->rowCount();
     
@@ -163,7 +163,7 @@ try {
         testResult("Обновление выбора в сюжете", true, "Обновлено записей: {$affectedRows}");
         
         // Проверяем что данные обновились
-        $checkStmt = $pdo->prepare("SELECT choices_made FROM darkdate_story_progress WHERE user_id = ? AND chapter_id = 1");
+        $checkStmt = $pdo->prepare("SELECT choices_made FROM darkdate_story_progress WHERE user_id = ? AND chapter = 1");
         $checkStmt->execute([$userId]);
         $progress = $checkStmt->fetch();
         

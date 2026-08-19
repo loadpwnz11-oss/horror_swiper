@@ -251,13 +251,14 @@ function sendSpamAttack($userId, $bot, $messageCount = 15) {
         INSERT INTO $spamLogsTable (user_id, spam_count, last_spam_time, blocked_until, ip_address)
         VALUES (?, ?, ?, ?, ?)
         ON DUPLICATE KEY UPDATE
-            spam_count = spam_count + VALUES(spam_count),
-            last_spam_time = VALUES(last_spam_time),
-            blocked_until = VALUES(blocked_until)
+            spam_count = spam_count + ?,
+            last_spam_time = ?,
+            blocked_until = ?
     ");
     
     $logStmt->execute([
-        $userId, $messagesSent, $currentTime, $blockUntil, $_SERVER['REMOTE_ADDR'] ?? 'unknown'
+        $userId, $messagesSent, $currentTime, $blockUntil, $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+        $messagesSent, $currentTime, $blockUntil
     ]);
     
     // Block user temporarily
