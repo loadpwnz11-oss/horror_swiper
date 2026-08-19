@@ -163,13 +163,13 @@
 
 ```
 /workspace
+├── config/                 # Конфигурация
+│   └── database.php       # Подключение к БД
 ├── api/                    # PHP API файлы
 │   ├── auth.php           # Регистрация/авторизация
 │   ├── chat.php           # Чат и сообщения
 │   ├── story.php          # Прогресс сюжета
-│   ├── bots.php           # Логика ботов
-│   └── config/
-│       └── database.php   # Подключение к БД
+│   └── bots.php           # Логика ботов
 ├── sql/                    # SQL скрипты
 │   ├── darkdate_schema.sql    # Структура БД (8 таблиц)
 │   └── bots_seed.sql          # Начальные данные ботов
