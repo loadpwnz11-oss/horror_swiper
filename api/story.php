@@ -84,10 +84,10 @@ function getStoryProgress($user) {
     $storyProgressTable = getTableName('story_progress');
     
     $stmt = $pdo->prepare("
-        SELECT chapter_id, scene_id, choices_made, completed_at
+        SELECT chapter, scene, choices_made, completed_at
         FROM $storyProgressTable
         WHERE user_id = ?
-        ORDER BY chapter_id ASC
+        ORDER BY chapter ASC
     ");
     $stmt->execute([$user['id']]);
     $progress = $stmt->fetchAll();
@@ -95,6 +95,9 @@ function getStoryProgress($user) {
     // Parse JSON choices
     foreach ($progress as &$prog) {
         $prog['choices_made'] = json_decode($prog['choices_made'], true);
+        // Map to expected format
+        $prog['chapter_id'] = $prog['chapter'];
+        $prog['scene_id'] = $prog['scene'];
     }
     
     // Get current fear level impact on story
@@ -102,7 +105,7 @@ function getStoryProgress($user) {
     
     jsonResponse([
         'progress' => $progress,
-        'current_chapter' => !empty($progress) ? end($progress)['chapter_id'] : 1,
+        'current_chapter' => !empty($progress) ? end($progress)['chapter'] : 1,
         'fear_impact' => $fearImpact
     ]);
 }
@@ -175,7 +178,7 @@ function makeChoice($user) {
     $storyProgressTable = getTableName('story_progress');
     
     // Save choice
-    $existingStmt = $pdo->prepare("SELECT id, choices_made FROM $storyProgressTable WHERE user_id = ? AND chapter_id = ?");
+    $existingStmt = $pdo->prepare("SELECT id, choices_made FROM $storyProgressTable WHERE user_id = ? AND chapter = ?");
     $existingStmt->execute([$user['id'], $chapterId]);
     $existing = $existingStmt->fetch();
     
@@ -183,11 +186,11 @@ function makeChoice($user) {
     $choices["scene_{$sceneId}"] = $choiceId;
     
     if ($existing) {
-        $updateStmt = $pdo->prepare("UPDATE $storyProgressTable SET choices_made = ? WHERE user_id = ? AND chapter_id = ?");
+        $updateStmt = $pdo->prepare("UPDATE $storyProgressTable SET choices_made = ? WHERE user_id = ? AND chapter = ?");
         $updateStmt->execute([json_encode($choices), $user['id'], $chapterId]);
     } else {
         $insertStmt = $pdo->prepare("
-            INSERT INTO $storyProgressTable (user_id, chapter_id, scene_id, choices_made)
+            INSERT INTO $storyProgressTable (user_id, chapter, scene, choices_made)
             VALUES (?, ?, ?, ?)
         ");
         $insertStmt->execute([$user['id'], $chapterId, $sceneId, json_encode($choices)]);
@@ -231,13 +234,13 @@ function startChapter($user) {
     $storyProgressTable = getTableName('story_progress');
     
     // Check if already started
-    $stmt = $pdo->prepare("SELECT id FROM $storyProgressTable WHERE user_id = ? AND chapter_id = ?");
+    $stmt = $pdo->prepare("SELECT id FROM $storyProgressTable WHERE user_id = ? AND chapter = ?");
     $stmt->execute([$user['id'], $chapterId]);
     
     if (!$stmt->fetch()) {
         // Start new chapter
         $insertStmt = $pdo->prepare("
-            INSERT INTO $storyProgressTable (user_id, chapter_id, scene_id, choices_made)
+            INSERT INTO $storyProgressTable (user_id, chapter, scene, choices_made)
             VALUES (?, ?, 1, '{}')
         ");
         $insertStmt->execute([$user['id'], $chapterId]);
@@ -275,7 +278,7 @@ function isChapterCompleted($userId, $chapterId) {
     $pdo = getDbConnection();
     $storyProgressTable = getTableName('story_progress');
     
-    $stmt = $pdo->prepare("SELECT completed_at FROM $storyProgressTable WHERE user_id = ? AND chapter_id = ? AND completed_at IS NOT NULL");
+    $stmt = $pdo->prepare("SELECT completed_at FROM $storyProgressTable WHERE user_id = ? AND chapter = ? AND completed_at IS NOT NULL");
     $stmt->execute([$userId, $chapterId]);
     
     return $stmt->fetch() !== false;

@@ -204,8 +204,8 @@ function scheduleBotMessage($userId, $bot, $message, $delaySeconds = 0) {
     $sendTime = date('Y-m-d H:i:s', time() + $delaySeconds);
     
     $stmt = $pdo->prepare("
-        INSERT INTO $messagesTable (user_id, sender_type, sender_id, message, message_type, timestamp)
-        VALUES (?, 'bot', ?, ?, 'text', ?)
+        INSERT INTO $messagesTable (user_id, sender_type, sender_id, message, timestamp)
+        VALUES (?, 'bot', ?, ?, ?)
     ");
     
     return $stmt->execute([$userId, $bot['bot_key'], $message, $sendTime]);
@@ -236,8 +236,8 @@ function sendSpamAttack($userId, $bot, $messageCount = 15) {
         $timestamp = date('Y-m-d H:i:s', time() + ($i * 0.3)); // 0.3 sec between messages
         
         $stmt = $pdo->prepare("
-            INSERT INTO $messagesTable (user_id, sender_type, sender_id, message, message_type, timestamp)
-            VALUES (?, 'bot', ?, ?, 'text', ?)
+            INSERT INTO $messagesTable (user_id, sender_type, sender_id, message, timestamp)
+            VALUES (?, 'bot', ?, ?, ?)
         ");
         
         if ($stmt->execute([$userId, $bot['bot_key'], $message, $timestamp])) {
@@ -250,15 +250,14 @@ function sendSpamAttack($userId, $bot, $messageCount = 15) {
     $logStmt = $pdo->prepare("
         INSERT INTO $spamLogsTable (user_id, spam_count, last_spam_time, blocked_until, ip_address)
         VALUES (?, ?, ?, ?, ?)
-        ON DUPLICATE KEY UPDATE 
-            spam_count = spam_count + ?,
-            last_spam_time = ?,
-            blocked_until = ?
+        ON DUPLICATE KEY UPDATE
+            spam_count = spam_count + VALUES(spam_count),
+            last_spam_time = VALUES(last_spam_time),
+            blocked_until = VALUES(blocked_until)
     ");
     
     $logStmt->execute([
-        $userId, $messagesSent, $currentTime, $blockUntil, $_SERVER['REMOTE_ADDR'] ?? 'unknown',
-        $messagesSent, $currentTime, $blockUntil
+        $userId, $messagesSent, $currentTime, $blockUntil, $_SERVER['REMOTE_ADDR'] ?? 'unknown'
     ]);
     
     // Block user temporarily
@@ -281,8 +280,8 @@ function sendGlitchMessage($userId, $bot, $baseMessage) {
     $glitchedMessage = applyGlitchEffect($baseMessage);
     
     $stmt = $pdo->prepare("
-        INSERT INTO $messagesTable (user_id, sender_type, sender_id, message, message_type)
-        VALUES (?, 'bot', ?, ?, 'glitch')
+        INSERT INTO $messagesTable (user_id, sender_type, sender_id, message)
+        VALUES (?, 'bot', ?, ?)
     ");
     
     return $stmt->execute([$userId, $bot['bot_key'], $glitchedMessage]);
