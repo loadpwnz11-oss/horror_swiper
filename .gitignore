@@ -1,4 +1,4 @@
-```php
+
 # Compiled and build artifacts
 *.pyc
 __pycache__/
@@ -96,4 +96,4 @@ composer.lock
 *.tar.bz2
 *.tar.xz
 *.tar.zst
-```
+
